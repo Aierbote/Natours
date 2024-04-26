@@ -1,0 +1,19 @@
+# file for testing API with VSCode extension `REST Client` by **Huachao Mao**
+#     https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+# tutorial found on Medium:
+#     https://medium.com/lseg-developer-community/how-to-test-rest-api-with-visual-studio-code-rest-client-extensions-9f2e061d0299
+
+@hostname = localhost
+@PORT = 3000
+@baseUrl = http://{{hostname}}:{{PORT}}
+
+###
+
+GET {{baseUrl}}/
+
+###
+
+POST {{baseUrl}}/
+
+###
+
