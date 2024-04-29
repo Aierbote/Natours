@@ -57,5 +57,13 @@ Content-Type: application/json
   "duration": 5
 }
 
+### update a tour field
+
+DELETE {{baseUrl}}/{{api}}/{{vers}}/tours/7
+
+### update specific field of invalid ID, NOT FOUND
+
+DELETE {{baseUrl}}/{{api}}/{{vers}}/tours/555
+
 ###
 
