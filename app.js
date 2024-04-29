@@ -18,7 +18,7 @@ app.use(express.json());
 // });
 
 const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/dev-data/data/tours.json`)
+  fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
 
 app.get('/api/v1/tours', (req, res) => {
@@ -27,6 +27,38 @@ app.get('/api/v1/tours', (req, res) => {
     results: tours.length, // NOTE : not a standard, but useful for counting multiple objects in array
     data: {
       tours /* explicitly `tours: tours` */,
+    },
+  });
+});
+
+app.get('/api/v1/tours/:id', (req, res) => {
+  console.log(req.params);
+  const id = req.params.id * 1;
+
+  // // simplistic check, tours array is short
+  // if (id > tours.length) {
+  //   return res.status(404).json({
+  //     status: 'fail',
+  //     message: `Invalid ID:
+  //     simplistic check said it was bigger than tour array length`,
+  //   });
+  // }
+
+  const tour = tours.find((el) => el.id === id);
+
+  // realistic check, existence
+  if (!tour) {
+    return res.status(404).json({
+      status: 'fail',
+      message: `Invalid ID:
+      realistic check, find returned undefined`,
+    });
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      tour,
     },
   });
 });
