@@ -21,6 +21,14 @@ POST {{baseUrl}}/
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours
 
+### get specific tour by id
+
+GET {{baseUrl}}/{{api}}/{{vers}}/tours/5
+
+### get specific tour by id NOT FOUND
+
+GET {{baseUrl}}/{{api}}/{{vers}}/tours/555
+
 ### create new tour
 
 POST {{baseUrl}}/{{api}}/{{vers}}/tours
