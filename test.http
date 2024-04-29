@@ -40,5 +40,22 @@ Content-Type: application/json
   "difficulty": "easy"
 }
 
+### update a tour field
+
+PATCH {{baseUrl}}/{{api}}/{{vers}}/tours/3
+Content-Type: application/json
+
+{
+  "duration": 5
+}
+### update specific field of invalid ID, NOT FOUND
+
+PATCH {{baseUrl}}/{{api}}/{{vers}}/tours/555
+Content-Type: application/json
+
+{
+  "duration": 5
+}
+
 ###
 
