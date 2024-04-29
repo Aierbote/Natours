@@ -6,6 +6,19 @@ const PORT = process.env.PORT | 3000;
 
 app.use(express.json());
 
+app.use((req, res, next) => {
+  console.log('Hello from the Middleware');
+
+  // IMPORTANT to execute middleware
+  next();
+});
+
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+
+  next();
+});
+
 const getTour = (req, res) => {
   console.log(req.params);
   const id = req.params.id * 1;
@@ -25,6 +38,7 @@ const getTour = (req, res) => {
   if (!tour) {
     return res.status(404).json({
       status: 'fail',
+      requestedAt: req.requestTime,
       message: `Invalid ID:
       realistic check, find returned undefined`,
     });
@@ -32,6 +46,7 @@ const getTour = (req, res) => {
 
   res.status(200).json({
     status: 'success',
+    requestedAt: req.requestTime,
     data: {
       tour,
     },
@@ -41,6 +56,7 @@ const getTour = (req, res) => {
 const getAllTours = (req, res) => {
   res.status(200).json({
     status: 'success',
+    requestedAt: req.requestTime,
     results: tours.length, // NOTE : not a standard, but useful for counting multiple objects in array
     data: {
       tours /* explicitly `tours: tours` */,
@@ -62,6 +78,7 @@ const createTour = (req, res) => {
     (err) => {
       res.status(201).json({
         status: 'success',
+        requestedAt: req.requestTime,
         data: {
           tour: newTour,
         },
@@ -74,6 +91,7 @@ const updateTour = (req, res) => {
   if (req.params.id * 1 > tours.length) {
     return res.status(404).json({
       status: 'fail',
+      requestedAt: req.requestTime,
       data: {
         tour: 'Invalid ID: simplistic check, cannot update if not found',
       },
@@ -82,6 +100,7 @@ const updateTour = (req, res) => {
 
   res.status(200).json({
     status: 'success',
+    requestedAt: req.requestTime,
     data: {
       tour: '<PLACEHOLDER: Updated tour here...>',
     },
@@ -92,6 +111,7 @@ const deleteTour = (req, res) => {
   if (req.params.id * 1 > tours.length) {
     return res.status(404).json({
       status: 'fail',
+      requestedAt: req.requestTime,
       data: {
         tour: 'Invalid ID: simplistic check, cannot delete if not found',
       },
@@ -100,6 +120,7 @@ const deleteTour = (req, res) => {
 
   res.status(204).json({
     status: 'success',
+    requestedAt: req.requestTime,
     data: null,
   });
 };
