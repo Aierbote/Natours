@@ -6,6 +6,8 @@
 @hostname = localhost
 @PORT = 3000
 @baseUrl = http://{{hostname}}:{{PORT}}
+@api = api
+@vers = v1
 
 ###
 
@@ -14,6 +16,21 @@ GET {{baseUrl}}/
 ###
 
 POST {{baseUrl}}/
+
+### get all tours
+
+GET {{baseUrl}}/{{api}}/{{vers}}/tours
+
+### create new tour
+
+POST {{baseUrl}}/{{api}}/{{vers}}/tours
+Content-Type: application/json
+
+{
+  "name": "Test tour",
+  "duration": 10,
+  "difficulty": "easy"
+}
 
 ###
 
