@@ -1,5 +1,6 @@
 const express = require('express');
 const fs = require('fs');
+const morgan = require('morgan');
 
 const tourRouter = require('./routes/tourRouter');
 const userRouter = require('./routes/userRouter');
@@ -8,6 +9,8 @@ const app = express();
 const PORT = process.env.PORT | 3000;
 
 /* Middlewares */
+
+app.use(morgan('dev'));
 
 app.use(express.json());
 
