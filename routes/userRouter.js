@@ -1,51 +1,13 @@
 const express = require('express');
 
 /* Route Handlers */
-
-const getAllUsers = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    data: {
-      message: 'Not Yet Implemented',
-    },
-  });
-};
-
-const createUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    data: {
-      message: 'Not Yet Implemented',
-    },
-  });
-};
-
-const getUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    data: {
-      message: 'Not Yet Implemented',
-    },
-  });
-};
-
-const updateUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    data: {
-      message: 'Not Yet Implemented',
-    },
-  });
-};
-
-const deleteUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    data: {
-      message: 'Not Yet Implemented',
-    },
-  });
-};
+const {
+  getAllUsers,
+  createUser,
+  getUser,
+  updateUser,
+  deleteUser,
+} = require('./../controllers/userControllers');
 
 /* Middlewares */
 
