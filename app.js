@@ -6,7 +6,6 @@ const tourRouter = require('./routes/tourRouter');
 const userRouter = require('./routes/userRouter');
 
 const app = express();
-const PORT = process.env.PORT | 3000;
 
 /* Middlewares */
 
@@ -55,6 +54,4 @@ app.use((req, res, next) => {
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 
-app.listen(PORT, () => {
-  console.log(`App running on port ${PORT}`);
-});
+module.exports = app;
