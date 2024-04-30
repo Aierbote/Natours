@@ -65,5 +65,13 @@ DELETE {{baseUrl}}/{{api}}/{{vers}}/tours/7
 
 DELETE {{baseUrl}}/{{api}}/{{vers}}/tours/555
 
-###
+### get all users
 
+GET {{baseUrl}}/{{api}}/{{vers}}/users
+
+### create new user
+
+# TODO : Not Yet Implemented
+POST {{baseUrl}}/{{api}}/{{vers}}/users
+
+###

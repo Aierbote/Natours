@@ -4,6 +4,8 @@ const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT | 3000;
 
+/* Middlewares */
+
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -18,6 +20,8 @@ app.use((req, res, next) => {
 
   next();
 });
+
+/* Route Handlers */
 
 const getTour = (req, res) => {
   console.log(req.params);
@@ -125,6 +129,51 @@ const deleteTour = (req, res) => {
   });
 };
 
+const getAllUsers = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    data: {
+      message: 'Not Yet Implemented',
+    },
+  });
+};
+
+const createUser = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    data: {
+      message: 'Not Yet Implemented',
+    },
+  });
+};
+
+const getUser = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    data: {
+      message: 'Not Yet Implemented',
+    },
+  });
+};
+
+const updateUser = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    data: {
+      message: 'Not Yet Implemented',
+    },
+  });
+};
+
+const deleteUser = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    data: {
+      message: 'Not Yet Implemented',
+    },
+  });
+};
+
 // Version 0 - starting example
 // app.get('/', (req, res) => {
 //   res
@@ -140,6 +189,8 @@ const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
 
+/* Routes */
+
 // // Version 1: Refactoring more readable and declarative look
 // app.get('/api/v1/tours', getAllTours);
 // app.post('/api/v1/tours', createTour);
@@ -154,6 +205,13 @@ app
   .get(getTour)
   .patch(updateTour)
   .delete(deleteTour);
+
+app.route('/api/v1/users').get(getAllUsers).post(createUser);
+app
+  .route('/api/v1/users/:id')
+  .get(getUser)
+  .patch(updateUser)
+  .delete(deleteUser);
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}`);
