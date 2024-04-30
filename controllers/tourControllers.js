@@ -4,10 +4,26 @@ const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
 );
 
+exports.checkId = (req, res, next, val) => {
+  console.log(`tour id: ${val}`);
+
+  if (req.params.id * 1 > tours.length) {
+    return res.status(404).json({
+      status: 'fail',
+      requestedAt: req.requestTime,
+      data: {
+        tour: 'Invalid ID: simplistic check, cannot delete if not found',
+      },
+    });
+  }
+
+  next();
+};
+
 /* Route Handlers */
 
 exports.getTour = (req, res) => {
-  console.log(req.params);
+  // console.log(req.params);
   const id = req.params.id * 1;
 
   // // simplistic check, tours array is short
@@ -20,16 +36,6 @@ exports.getTour = (req, res) => {
   // }
 
   const tour = tours.find((el) => el.id === id);
-
-  // realistic check, existence
-  if (!tour) {
-    return res.status(404).json({
-      status: 'fail',
-      requestedAt: req.requestTime,
-      message: `Invalid ID:
-      realistic check, find returned undefined`,
-    });
-  }
 
   res.status(200).json({
     status: 'success',
@@ -75,16 +81,6 @@ exports.getAllTours = (req, res) => {
 };
 
 exports.updateTour = (req, res) => {
-  if (req.params.id * 1 > tours.length) {
-    return res.status(404).json({
-      status: 'fail',
-      requestedAt: req.requestTime,
-      data: {
-        tour: 'Invalid ID: simplistic check, cannot update if not found',
-      },
-    });
-  }
-
   res.status(200).json({
     status: 'success',
     requestedAt: req.requestTime,
@@ -95,16 +91,6 @@ exports.updateTour = (req, res) => {
 };
 
 exports.deleteTour = (req, res) => {
-  if (req.params.id * 1 > tours.length) {
-    return res.status(404).json({
-      status: 'fail',
-      requestedAt: req.requestTime,
-      data: {
-        tour: 'Invalid ID: simplistic check, cannot delete if not found',
-      },
-    });
-  }
-
   res.status(204).json({
     status: 'success',
     requestedAt: req.requestTime,
