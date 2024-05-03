@@ -2,28 +2,22 @@ const Tour = require('../models/tourModel');
 
 /* Route Handlers */
 
-exports.getTour = (req, res) => {
-  // console.log(req.params);
-  const id = req.params.id * 1;
+exports.getTour = async (req, res) => {
+  try {
+    const tour = await Tour.findById(req.params.id);
 
-  // // simplistic check, tours array is short
-  // if (id > tours.length) {
-  //   return res.status(404).json({
-  //     status: 'fail',
-  //     message: `Invalid ID:
-  //     simplistic check said it was bigger than tour array length`,
-  //    });
-  // }
-
-  // const tour = tours.find((el) => el.id === id);
-
-  res.status(200).json({
-    status: 'success',
-    requestedAt: req.requestTime,
-    // data: {
-    //   tour,
-    // },
-  });
+    res.status(200).json({
+      status: 'success',
+      data: {
+        tour,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err,
+    });
+  }
 };
 
 exports.createTour = async (req, res) => {
