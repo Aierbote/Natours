@@ -64,6 +64,25 @@ Content-Type: application/json
 {
   "duration": 5
 }
+
+### update a tour field WITH MONGO
+
+PATCH {{baseUrl}}/{{api}}/{{vers}}/tours/663403e65bed1a47a6b747fc
+Content-Type: application/json
+
+{
+  "price": 500
+}
+
+### update a tour field WITH MONGO and a STRING
+
+PATCH {{baseUrl}}/{{api}}/{{vers}}/tours/663403e65bed1a47a6b747fc
+Content-Type: application/json
+
+{
+  "price": "some price"
+}
+
 ### update specific field of invalid ID, NOT FOUND
 
 PATCH {{baseUrl}}/{{api}}/{{vers}}/tours/555
