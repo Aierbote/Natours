@@ -1,24 +1,27 @@
-const fs = require('fs');
+// const fs = require('fs');
+const Tour = require('../models/tourModel');
 
-const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
-);
+// // testing from local file
+// const tours = JSON.parse(
+//   fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`),
+// );
 
-exports.checkId = (req, res, next, val) => {
-  console.log(`tour id: ${val}`);
+// // example of middleware no longer needed, now MongoDB will deal with that
+// exports.checkId = (req, res, next, val) => {
+//   console.log(`tour id: ${val}`);
 
-  if (req.params.id * 1 > tours.length) {
-    return res.status(404).json({
-      status: 'fail',
-      requestedAt: req.requestTime,
-      data: {
-        tour: 'Invalid ID: simplistic check, cannot delete if not found',
-      },
-    });
-  }
+//   if (req.params.id * 1 > tours.length) {
+//     return res.status(404).json({
+//       status: 'fail',
+//       requestedAt: req.requestTime,
+//       data: {
+//         tour: 'Invalid ID: simplistic check, cannot delete if not found',
+//       },
+//     });
+//   }
 
-  next();
-};
+//   next();
+// };
 
 exports.checkBody = (req, res, next) => {
   if (!req.body.name || !req.body.price) {
@@ -43,51 +46,47 @@ exports.getTour = (req, res) => {
   //     status: 'fail',
   //     message: `Invalid ID:
   //     simplistic check said it was bigger than tour array length`,
-  //   });
+  //    });
   // }
 
-  const tour = tours.find((el) => el.id === id);
+  // const tour = tours.find((el) => el.id === id);
 
   res.status(200).json({
     status: 'success',
     requestedAt: req.requestTime,
-    data: {
-      tour,
-    },
+    // data: {
+    //   tour,
+    // },
   });
 };
 
 exports.createTour = (req, res) => {
-  // // DEBUG :
-  // console.log(req.body);
-
-  const newId = tours[tours.length - 1].id + 1;
-  const newTour = Object.assign({ id: newId }, req.body);
-
-  tours.push(newTour);
-  fs.writeFile(
-    `${__dirname}/dev-data/data/tours-simple.json`,
-    JSON.stringify(tours),
-    (err) => {
-      res.status(201).json({
-        status: 'success',
-        requestedAt: req.requestTime,
-        data: {
-          tour: newTour,
-        },
-      });
-    }
-  );
+  // const newId = tours[tours.length - 1].id + 1;
+  // const newTour = Object.assign({ id: newId }, req.body);
+  // tours.push(newTour);
+  // fs.writeFile(
+  //   `${__dirname}/dev-data/data/tours-simple.json`,
+  //   JSON.stringify(tours),
+  //   (err) => {
+  //     res.status(201).json({
+  //       status: 'success',
+  //       requestedAt: req.requestTime,
+  //       data: {
+  //         tour: newTour,
+  //       },
+  //     });
+  //   },
+  // );
 };
 
 exports.getAllTours = (req, res) => {
   res.status(200).json({
     status: 'success',
     requestedAt: req.requestTime,
-    results: tours.length, // NOTE : not a standard, but useful for counting multiple objects in array
-    data: {
-      tours /* explicitly `tours: tours` */,
-    },
+    // results: tours.length, // NOTE : not a standard, but useful for counting multiple objects in array
+    // data: {
+    //   tours /* explicitly `tours: tours` */,
+    // },
   });
 };
 
