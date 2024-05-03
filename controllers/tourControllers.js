@@ -1,27 +1,4 @@
-// const fs = require('fs');
 const Tour = require('../models/tourModel');
-
-// // testing from local file
-// const tours = JSON.parse(
-//   fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`),
-// );
-
-// // example of middleware no longer needed, now MongoDB will deal with that
-// exports.checkId = (req, res, next, val) => {
-//   console.log(`tour id: ${val}`);
-
-//   if (req.params.id * 1 > tours.length) {
-//     return res.status(404).json({
-//       status: 'fail',
-//       requestedAt: req.requestTime,
-//       data: {
-//         tour: 'Invalid ID: simplistic check, cannot delete if not found',
-//       },
-//     });
-//   }
-
-//   next();
-// };
 
 exports.checkBody = (req, res, next) => {
   if (!req.body.name || !req.body.price) {
