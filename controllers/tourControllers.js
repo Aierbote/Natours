@@ -1,15 +1,16 @@
 const Tour = require('../models/tourModel');
 
-exports.checkBody = (req, res, next) => {
-  if (!req.body.name || !req.body.price) {
-    return res.status(400).json({
-      status: 'fail',
-      message: 'Both `name` and `price` are required',
-    });
-  }
+// // now Mongoose will deal with that
+// exports.checkBody = (req, res, next) => {
+//   if (!req.body.name || !req.body.price) {
+//     return res.status(400).json({
+//       status: 'fail',
+//       message: 'Both `name` and `price` are required',
+//     });
+//   }
 
-  next();
-};
+//   next();
+// };
 
 /* Route Handlers */
 
