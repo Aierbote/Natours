@@ -21,6 +21,10 @@ POST {{baseUrl}}/
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours
 
+### filter tours with QUERY
+
+GET {{baseUrl}}/{{api}}/{{vers}}/tours?duration=5&difficulty=easy
+
 ### get specific tour by id
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours/5
