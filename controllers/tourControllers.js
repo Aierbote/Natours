@@ -26,7 +26,6 @@ exports.createTour = async (req, res) => {
 
     res.status(201).json({
       status: 'success',
-      requestedAt: req.requestTime,
       data: {
         tour: newTour,
       },
@@ -80,10 +79,18 @@ exports.updateTour = async (req, res) => {
   }
 };
 
-exports.deleteTour = (req, res) => {
-  res.status(204).json({
-    status: 'success',
-    requestedAt: req.requestTime,
-    data: null,
-  });
+exports.deleteTour = async (req, res) => {
+  try {
+    await Tour.findByIdAndDelete(req.params.id);
+
+    res.status(204).json({
+      status: 'success',
+      data: null,
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err,
+    });
+  }
 };

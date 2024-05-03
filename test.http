@@ -92,11 +92,15 @@ Content-Type: application/json
   "duration": 5
 }
 
-### update a tour field
+### delete a tour
 
 DELETE {{baseUrl}}/{{api}}/{{vers}}/tours/9
 
-### update specific field of invalid ID, NOT FOUND
+### delete a tour WITH MONGO
+
+DELETE {{baseUrl}}/{{api}}/{{vers}}/tours/663403e65bed1a47a6b747fc
+
+### delete a tour of invalid ID, NOT FOUND
 
 DELETE {{baseUrl}}/{{api}}/{{vers}}/tours/555
 
