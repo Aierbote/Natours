@@ -46,15 +46,23 @@ exports.createTour = async (req, res) => {
   }
 };
 
-exports.getAllTours = (req, res) => {
-  res.status(200).json({
-    status: 'success',
-    requestedAt: req.requestTime,
-    // results: tours.length, // NOTE : not a standard, but useful for counting multiple objects in array
-    // data: {
-    //   tours /* explicitly `tours: tours` */,
-    // },
-  });
+exports.getAllTours = async (req, res) => {
+  try {
+    const tours = await Tour.find();
+
+    res.status(200).json({
+      status: 'success',
+      results: tours.length, // NOTE : not a standard, but useful for counting multiple objects in array
+      data: {
+        tours /* explicitly `tours: tours` */,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err,
+    });
+  }
 };
 
 exports.updateTour = (req, res) => {
