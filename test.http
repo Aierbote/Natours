@@ -61,6 +61,16 @@ GET {{baseUrl}}/{{api}}/{{vers}}/tours?fields=-name,-duration
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours?page=2&limit=2
 
+### filter tours with QUERY and FILTERING and PAGINATION #2
+## AKA we have few Documents (5 pages with limit of 2), WHAT IF we exceed them?
+
+GET {{baseUrl}}/{{api}}/{{vers}}/tours?page=6&limit=2
+
+### filter tours with QUERY and FILTERING and PAGINATION #2
+## AKA we have few Documents (5 pages with limit of 2), WHAT IF reach last one?
+
+GET {{baseUrl}}/{{api}}/{{vers}}/tours?page=5&limit=2
+
 ### get specific tour by id
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours/5

@@ -82,6 +82,14 @@ exports.getAllTours = async (req, res) => {
 
     query = query.skip(skip).limit(limit);
 
+    // exceeding pagination happens only with the `page` field
+    if (req.query.page) {
+      const numTours = await Tour.countDocuments();
+
+      // for now this will be the Error without handling, but the clever idea is to see if we skipped more Documents than all existing ones
+      if (skip >= numTours) throw new Error('This page does not exist');
+    }
+
     // EXECUTE THE QUERY
     const tours = await query;
 
