@@ -57,6 +57,10 @@ GET {{baseUrl}}/{{api}}/{{vers}}/tours?fields=name,duration
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours?fields=-name,-duration
 
+### filter tours with QUERY and FILTERING and PAGINATION
+
+GET {{baseUrl}}/{{api}}/{{vers}}/tours?page=2&limit=2
+
 ### get specific tour by id
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours/5
