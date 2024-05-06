@@ -37,6 +37,14 @@ GET {{baseUrl}}/{{api}}/{{vers}}/tours?duration[gte]=5&difficulty=easy
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours?duration[gte]=5&difficulty=easy&price[lte]=1500
 
+### filter tours with QUERY and FILTERING and SORTING
+
+GET {{baseUrl}}/{{api}}/{{vers}}/tours?sort=price
+
+### filter tours with QUERY and FILTERING and SORTING #2
+
+GET {{baseUrl}}/{{api}}/{{vers}}/tours?sort=-price
+
 ### get specific tour by id
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours/5
