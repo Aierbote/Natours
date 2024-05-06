@@ -37,36 +37,36 @@ GET {{baseUrl}}/{{api}}/{{vers}}/tours?duration[gte]=5&difficulty=easy
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours?duration[gte]=5&difficulty=easy&price[lte]=1500
 
-### filter tours with QUERY and FILTERING and SORTING
+### filter tours with QUERY and SORTING
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours?sort=price
 
-### filter tours with QUERY and FILTERING and SORTING #2
+### filter tours with QUERY and SORTING #2
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours?sort=-price
 
-### filter tours with QUERY and FILTERING and MULTIPLE-FIELD SORTING #3
+### filter tours with QUERY and MULTIPLE-FIELD SORTING #3
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours?sort=-price,ratingsAverage
 
-### filter tours with QUERY and FILTERING and FIELD LIMIT
+### filter tours with QUERY and FIELD LIMIT
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours?fields=name,duration
 
-### filter tours with QUERY and FILTERING and FIELD LIMIT #2
+### filter tours with QUERY and FIELD LIMIT #2
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours?fields=-name,-duration
 
-### filter tours with QUERY and FILTERING and PAGINATION
+### filter tours with QUERY and PAGINATION
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours?page=2&limit=2
 
-### filter tours with QUERY and FILTERING and PAGINATION #2
+### filter tours with QUERY and PAGINATION #2
 ## AKA we have few Documents (5 pages with limit of 2), WHAT IF we exceed them?
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours?page=6&limit=2
 
-### filter tours with QUERY and FILTERING and PAGINATION #2
+### filter tours with QUERY and PAGINATION #2
 ## AKA we have few Documents (5 pages with limit of 2), WHAT IF reach last one?
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours?page=5&limit=2
