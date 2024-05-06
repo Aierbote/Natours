@@ -29,6 +29,14 @@ GET {{baseUrl}}/{{api}}/{{vers}}/tours?duration=5&difficulty=easy
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours?duration=5&difficulty=easy&page=2&sort=1&limit=10
 
+### filter tours with QUERY and FILTERING and OPERATORS
+
+GET {{baseUrl}}/{{api}}/{{vers}}/tours?duration[gte]=5&difficulty=easy
+
+### filter tours with QUERY and FILTERING and OPERATORS #2
+
+GET {{baseUrl}}/{{api}}/{{vers}}/tours?duration[gte]=5&difficulty=easy&price[lte]=1500
+
 ### get specific tour by id
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours/5

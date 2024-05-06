@@ -42,11 +42,16 @@ exports.createTour = async (req, res) => {
 exports.getAllTours = async (req, res) => {
   try {
     // BUILDING QUERY
+    // 1) Filtering
     const queryObj = { ...req.query }; // shallow copy
     const excludedFields = ['page', 'sort', 'limit', 'fields'];
     excludedFields.forEach((el) => delete queryObj[el]);
 
-    const query = Tour.find(queryObj);
+    // 2) Advance Filtering
+    let queryStr = JSON.stringify(queryObj);
+    queryStr = queryStr.replace(/\b(gt(e)?|lt(e)?)\b/g, (match) => `$${match}`);
+
+    const query = Tour.find(JSON.parse(queryStr));
 
     // const tours = await Tour.find()
     //   .where('duration')
