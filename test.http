@@ -71,6 +71,14 @@ GET {{baseUrl}}/{{api}}/{{vers}}/tours?page=6&limit=2
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours?page=5&limit=2
 
+### filter tours with QUERY and WITHOUT ALIAS
+
+GET {{baseUrl}}/{{api}}/{{vers}}/tours?limit=5&sort=-ratingsAverage,price
+
+### filter tours with QUERY and WITH ALIAS
+
+GET {{baseUrl}}/{{api}}/{{vers}}/tours/top-5-cheap
+
 ### get specific tour by id
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours/5
