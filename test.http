@@ -45,6 +45,10 @@ GET {{baseUrl}}/{{api}}/{{vers}}/tours?sort=price
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours?sort=-price
 
+### filter tours with QUERY and FILTERING and MULTIPLE-FIELD SORTING #3
+
+GET {{baseUrl}}/{{api}}/{{vers}}/tours?sort=-price,ratingsAverage
+
 ### get specific tour by id
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours/5
