@@ -79,6 +79,10 @@ GET {{baseUrl}}/{{api}}/{{vers}}/tours?limit=5&sort=-ratingsAverage,price
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours/top-5-cheap
 
+### get tours stats
+
+GET {{baseUrl}}/{{api}}/{{vers}}/tours/tour-stats
+
 ### get specific tour by id
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours/5
@@ -192,3 +196,5 @@ GET {{baseUrl}}/{{api}}/{{vers}}/users
 POST {{baseUrl}}/{{api}}/{{vers}}/users
 
 ###
+
+
