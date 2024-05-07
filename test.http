@@ -139,7 +139,11 @@ Content-Type: application/json
 {
   "name": "Test tour",
   "duration": 10,
-  "difficulty": "easy"
+  "maxGroupSize": 25,
+  "difficulty": "easy",
+  "price": 397,
+  "summary": "Testing Tour hike through the TestSton National Park",
+  "imageCover": "tour-1-cover.jpg"
 }
 
 ### update a tour field
