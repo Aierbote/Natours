@@ -83,6 +83,10 @@ GET {{baseUrl}}/{{api}}/{{vers}}/tours/top-5-cheap
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours/tour-stats
 
+### get monthly plans by year
+
+GET {{baseUrl}}/{{api}}/{{vers}}/tours/monthly-plan/2021
+
 ### get specific tour by id
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours/5
