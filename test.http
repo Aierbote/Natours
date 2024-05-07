@@ -131,6 +131,26 @@ Content-Type: application/json
   "startDates": ["2021-04-25,10:00", "2021-07-20,10:00", "2021-10-05,10:00"]
 }
 
+### create new tour SECRET TOUR
+
+POST {{baseUrl}}/{{api}}/{{vers}}/tours
+Content-Type: application/json
+
+{
+  "name": "Super Secret tour",
+  "duration": 10,
+  "maxGroupSize": 25,
+  "difficulty": "easy",
+  "price": 397,
+  "summary": "Testing Secret Tour to Jurassic Park",
+  "imageCover": "tour-1-cover.jpg",
+  "secretTour": true
+}
+
+### find tour with SECRET ID
+
+POST {{baseUrl}}/{{api}}/{{vers}}/tours/663a3d3a54ac03c6dc161ee6
+
 ### create new tour WITHOUT PRICE
 
 POST {{baseUrl}}/{{api}}/{{vers}}/tours
