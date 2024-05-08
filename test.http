@@ -149,7 +149,85 @@ Content-Type: application/json
 
 ### find tour with SECRET ID
 
-POST {{baseUrl}}/{{api}}/{{vers}}/tours/663a3d3a54ac03c6dc161ee6
+GET {{baseUrl}}/{{api}}/{{vers}}/tours/663a3d3a54ac03c6dc161ee6
+
+### create tour with a NAME TOO SHORT
+
+POST {{baseUrl}}/{{api}}/{{vers}}/tours/
+Content-Type: application/json
+
+{
+  "name": "Tour",
+  "duration": 10,
+  "maxGroupSize": 25,
+  "difficulty": "easy",
+  "price": 397,
+  "summary": "Testing short name Tour",
+  "imageCover": "tour-1-cover.jpg"
+}
+
+### create tour with a NAME TOO LONG
+
+POST {{baseUrl}}/{{api}}/{{vers}}/tours/
+Content-Type: application/json
+
+{
+  "name": "Tour to the famous long Eyjafjallajokull, longest name for a volcano",
+  "duration": 10,
+  "maxGroupSize": 25,
+  "difficulty": "easy",
+  "price": 397,
+  "summary": "Testing long name Tour",
+  "imageCover": "tour-1-cover.jpg"
+
+}
+
+### create tour with a RATING TOO LOW
+
+POST {{baseUrl}}/{{api}}/{{vers}}/tours/
+Content-Type: application/json
+
+{
+  "name": "Worst Tour Ever",
+  "duration": 1000,
+  "maxGroupSize": 25,
+  "difficulty": "easy",
+  "price": 3097,
+  "summary": "Testing lowest rating Tour",
+  "imageCover": "tour-1-cover.jpg",
+  "ratingsAverage": 0
+}
+
+### create tour with a RATING TOO HIGH
+
+POST {{baseUrl}}/{{api}}/{{vers}}/tours/
+Content-Type: application/json
+
+{
+  "name": "Best Tour Ever",
+  "duration": 10,
+  "maxGroupSize": 25,
+  "difficulty": "easy",
+  "price": 397,
+  "summary": "Testing highest rating Tour",
+  "imageCover": "tour-1-cover.jpg",
+  "ratingsAverage": 6
+}
+
+### create tour with a WRONG DIFFICULTY
+
+POST {{baseUrl}}/{{api}}/{{vers}}/tours/
+Content-Type: application/json
+
+{
+  "name": "Test Expert Tour",
+  "duration": 10,
+  "maxGroupSize": 25,
+  "difficulty": "EXPERT",
+  "price": 397,
+  "summary": "Testing Expert Tour",
+  "imageCover": "tour-1-cover.jpg"
+}
 
 ### create new tour WITHOUT PRICE
 
@@ -200,6 +278,24 @@ Content-Type: application/json
 
 {
   "duration": 5
+}
+
+### update specific field a NAME TOO SHORT
+
+PATCH {{baseUrl}}/{{api}}/{{vers}}/tours/663503fe924af83fcb9275c4
+Content-Type: application/json
+
+{
+  "name": "Tour"
+}
+
+### update specific field a NAME TOO LONG
+
+PATCH {{baseUrl}}/{{api}}/{{vers}}/tours/663503fe924af83fcb9275c4
+Content-Type: application/json
+
+{
+  "name": "Tour to the famous long Eyjafjallajokull, longest name for a volcano"
 }
 
 ### delete a tour
