@@ -357,6 +357,14 @@ DELETE {{baseUrl}}/{{api}}/{{vers}}/tours/663403e65bed1a47a6b747fc
 
 DELETE {{baseUrl}}/{{api}}/{{vers}}/tours/555
 
+### get NOT FOUND route #1
+
+GET {{baseUrl}}/{{api}}/tours
+
+### get NOT FOUND route #2
+
+GET {{baseUrl}}/{{api}}/{{vers}}/tours/querty
+
 ### get all users
 
 GET {{baseUrl}}/{{api}}/{{vers}}/users
