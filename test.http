@@ -276,6 +276,21 @@ Content-Type: application/json
   "priceDiscount": 300
 }
 
+# ### create new tour WITH JUST ALPHABETIC NAME
+
+# POST {{baseUrl}}/{{api}}/{{vers}}/tours
+# Content-Type: application/json
+
+# {
+#   "name": "Test tour 420",
+#   "duration": 10,
+#   "maxGroupSize": 25,
+#   "difficulty": "easy",
+#   "price": 397,
+#   "summary": "Testing Tour with must contain just alphabet",
+#   "imageCover": "tour-1-cover.jpg"
+# }
+
 ### update a tour field
 
 PATCH {{baseUrl}}/{{api}}/{{vers}}/tours/3
