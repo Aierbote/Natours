@@ -244,6 +244,38 @@ Content-Type: application/json
   "imageCover": "tour-1-cover.jpg"
 }
 
+### create new tour WITH DISCOUNT > PRICE
+
+POST {{baseUrl}}/{{api}}/{{vers}}/tours
+Content-Type: application/json
+
+{
+  "name": "Test tour Price gt",
+  "duration": 10,
+  "maxGroupSize": 25,
+  "difficulty": "easy",
+  "price": 397,
+  "summary": "Testing Tour priceDiscounted greater than price",
+  "imageCover": "tour-1-cover.jpg",
+  "priceDiscount": 400
+}
+
+### create new tour WITH DISCOUNT < PRICE
+
+POST {{baseUrl}}/{{api}}/{{vers}}/tours
+Content-Type: application/json
+
+{
+  "name": "Test tour Price lt",
+  "duration": 10,
+  "maxGroupSize": 25,
+  "difficulty": "easy",
+  "price": 397,
+  "summary": "Testing Tour priceDiscounted less than price",
+  "imageCover": "tour-1-cover.jpg",
+  "priceDiscount": 300
+}
+
 ### update a tour field
 
 PATCH {{baseUrl}}/{{api}}/{{vers}}/tours/3
@@ -300,7 +332,7 @@ Content-Type: application/json
 
 ### delete a tour
 
-DELETE {{baseUrl}}/{{api}}/{{vers}}/tours/9
+DELETE {{baseUrl}}/{{api}}/{{vers}}/tours/
 
 ### delete a tour WITH MONGO
 
