@@ -45,9 +45,11 @@ module.exports = (err, req, res, next) => {
   if (process.env.NODE_ENV === 'development') {
     sendErrDevs(err, res);
   } else if (process.env.NODE_ENV === 'production') {
-    let error = { ...err, name: err.name }; // without a more explicit check `name` doens't get the expected value of `CastError` or `ValidationError`
+    // let error = { ...err, name: err.name }; // without a more explicit check `name` doens't get the expected value of `CastError` or `ValidationError`
 
-    // // DEBUG : spot the difference with or without the addition after spread operator
+    let error = Object.create(err);
+
+    // // DEBUG : spot the difference with or without the correction about the spread operator
     // console.log(error);
     // console.log(err.name);
     // console.log(error.name);
