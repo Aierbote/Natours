@@ -93,7 +93,7 @@ GET {{baseUrl}}/{{api}}/{{vers}}/tours/5
 
 ### get specific tour by _id MONGO
 
-GET {{baseUrl}}/{{api}}/{{vers}}/tours/663403e65bed1a47a6b747fc
+GET {{baseUrl}}/{{api}}/{{vers}}/tours/663b3a6f227bea0b9dee407f
 
 ### get specific tour by id NOT FOUND
 
