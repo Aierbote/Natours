@@ -1,8 +1,26 @@
 const AppError = require('../utils/appError');
 
 // function to avoid propagating an `isOperational` error into Production
-const handleCastErrDB = (err, res) => {
+const handleCastErrDB = (err) => {
   const message = `Invalid ${err.path}: ${err.value}`;
+  return new AppError(message, 400);
+};
+
+const handleDuplicateFieldsDB = (err) => {
+  // NOTE : Mongo response changed over time and differs from the video lessons
+
+  // // My solution
+  // const message = `Duplicate field value: ${err.keyValue.name}. Please use another value`;
+
+  // // A Udemy user solution
+  // const values = Object.values(err.keyValue).join(',');
+  // const message = `Duplicate field value(s): ${values}. Please use another value(s)`;
+
+  // Course solution (except the updated Mongo value `message` instead of `errmsg`)
+  const value = err.message.match(/(["'])(\\?.)*?\1/)[0];
+  console.log(value);
+  const message = `Duplicate field value: ${value}. Please use another value`;
+
   return new AppError(message, 400);
 };
 
@@ -55,8 +73,8 @@ module.exports = (err, req, res, next) => {
     // console.log(error.name);
 
     if (error.name === 'CastError') error = handleCastErrDB(error);
+    if (error.code === 11000) error = handleDuplicateFieldsDB(error);
 
-    // replace arg `err` with our new `error`
     sendErrProd(error, res);
   }
 
