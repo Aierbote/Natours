@@ -99,6 +99,10 @@ GET {{baseUrl}}/{{api}}/{{vers}}/tours/663403e65bed1a47a6b747fc
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours/555
 
+### get specific tour by _id MONGO, valid, but NOT FOUND
+
+GET {{baseUrl}}/{{api}}/{{vers}}/tours/663403e65bed1a47ae000000
+
 ### create new tour
 
 POST {{baseUrl}}/{{api}}/{{vers}}/tours
