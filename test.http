@@ -95,7 +95,7 @@ GET {{baseUrl}}/{{api}}/{{vers}}/tours/5
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours/663b3a6f227bea0b9dee407f
 
-### get specific tour by id NOT FOUND
+### get specific tour by id NOT FOUND, invalid
 
 GET {{baseUrl}}/{{api}}/{{vers}}/tours/555
 

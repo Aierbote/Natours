@@ -1,3 +1,11 @@
+const AppError = require('../utils/appError');
+
+// function to avoid propagating an `isOperational` error into Production
+const handleCastErrDB = (err, res) => {
+  const message = `Invalid ${err.path}: ${err.value}`;
+  return new AppError(message, 400);
+};
+
 const sendErrDevs = (err, res) => {
   res.status(err.statusCode).json({
     status: err.status,
@@ -37,7 +45,17 @@ module.exports = (err, req, res, next) => {
   if (process.env.NODE_ENV === 'development') {
     sendErrDevs(err, res);
   } else if (process.env.NODE_ENV === 'production') {
-    sendErrProd(err, res);
+    let error = { ...err, name: err.name }; // without a more explicit check `name` doens't get the expected value of `CastError` or `ValidationError`
+
+    // // DEBUG : spot the difference with or without the addition after spread operator
+    // console.log(error);
+    // console.log(err.name);
+    // console.log(error.name);
+
+    if (error.name === 'CastError') error = handleCastErrDB(error);
+
+    // replace arg `err` with our new `error`
+    sendErrProd(error, res);
   }
 
   next();
