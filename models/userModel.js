@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
       'A user email can be used just for one subscription. TIP: Retrieve/restore your password',
     ],
     trim: true,
-    validator: [
+    validate: [
       // (val) => val.match(/^[a-zA-Z0-9.-|(+)]+@(\w+)(\.(\w{2,})){1,2}$/),
       validator.isEmail,
       'A user email address is must be valid.',
@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema({
     require: [true, 'A user password is required'],
     trim: true,
     minlength: [8, 'A secure password must be longer than 8 characters'],
-    // validator: [
+    // validate: [
     //   validator.isAlphanumeric,
     //   'A password must contains numbers, (upper and lower case) letters and special characters',
     // ],
@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     require: [true, 'A user must type password twice for confirmation'],
     trim: true,
-    validator: [
+    validate: [
       function (val) {
         return val === this.password;
       },
