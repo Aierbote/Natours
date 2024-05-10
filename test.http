@@ -349,6 +349,17 @@ Content-Type: application/json
   "name": "Tour to the famous long Eyjafjallajokull, longest name for a volcano"
 }
 
+### update several fields not passing VALIDATION
+
+PATCH {{baseUrl}}/{{api}}/{{vers}}/tours/663503fe924af83fcb9275c4
+Content-Type: application/json
+
+{
+  "name": "Tour to the famous long Eyjafjallajokull, longest name for a volcano",
+  "ratingsAverage": 6,
+  "difficulty": "whatever"
+}
+
 ### delete a tour
 
 DELETE {{baseUrl}}/{{api}}/{{vers}}/tours/
