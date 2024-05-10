@@ -43,6 +43,7 @@ const userSchema = new mongoose.Schema({
     require: [true, 'A user must type password twice for confirmation'],
     trim: true,
     validate: [
+      // this works only CREATE and on SAVE!!
       function (val) {
         return val === this.password;
       },

@@ -447,6 +447,19 @@ Content-Type: application/json
   "passwordConfirm": "123456"
 }
 
+### create new user, INVALID EMAIL
+
+POST {{baseUrl}}/{{api}}/{{vers}}/users/signup
+Content-Type: application/json
+
+{
+  "name": "super",
+  "email": "super@user",
+  "photo": "🦸🏻‍♂️",
+  "password": "sudosudo",
+  "passwordConfirm": "sudosudo"
+}
+
 ###
 
 
