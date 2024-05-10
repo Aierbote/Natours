@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -52,9 +53,18 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-// middleware pres-save-hook check `password === passwordConfirm`
+userSchema.pre('save', async function (next) {
+  // to avoid re-encrypting unchanged password
+  if (!this.isModified('password')) return next();
 
-// middleware pre-save-hook to encrypt the password
+  // hashing password with a cost o f12
+  this.password = await bcrypt.hash(this.password, 12);
+
+  // Delete passwordConfirm field after validation
+  this.passwordConfirm = undefined; // required input, but not persistent in DB
+
+  next();
+});
 
 // middleware post-save-hook after encrypted the password
 
