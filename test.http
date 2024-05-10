@@ -386,8 +386,66 @@ GET {{baseUrl}}/{{api}}/{{vers}}/users
 
 ### create new user
 
-# TODO : Not Yet Implemented
-POST {{baseUrl}}/{{api}}/{{vers}}/users
+POST {{baseUrl}}/{{api}}/{{vers}}/users/signup
+Content-Type: application/json
+
+{
+  "name": "alberto",
+  "email": "mia@personale.it",
+  "photo": "🤪",
+  "password": "12345678",
+  "passwordConfirm": "12345678"
+}
+
+### create new user, photo NOT REQUIRED
+
+POST {{baseUrl}}/{{api}}/{{vers}}/users/signup
+Content-Type: application/json
+
+{
+  "name": "jonas",
+  "email": "hello@jonas.io",
+  "password": "12345678",
+  "passwordConfirm": "12345678"
+}
+
+### create new user, NOT MATCHING PASSWORD
+
+POST {{baseUrl}}/{{api}}/{{vers}}/users/signup
+Content-Type: application/json
+
+{
+  "name": "pippo",
+  "email": "pinco@panco.io",
+  "password": "12345678",
+  "passwordConfirm": "87654321"
+}
+
+### create new user, untrimmed inputs
+
+POST {{baseUrl}}/{{api}}/{{vers}}/users/signup
+Content-Type: application/json
+
+{
+  "name": " funko ",
+  "email": "  funko@pop.uk ",
+  "photo": "🤖",
+  "password": " 12345678  ",
+  "passwordConfirm": "  12345678  "
+}
+
+### create new user, short password
+
+POST {{baseUrl}}/{{api}}/{{vers}}/users/signup
+Content-Type: application/json
+
+{
+  "name": "alice",
+  "email": "alice@ization.sao",
+  "photo": "👱‍♀️",
+  "password": "123456",
+  "passwordConfirm": "123456"
+}
 
 ###
 

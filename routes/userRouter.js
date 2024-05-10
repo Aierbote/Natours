@@ -7,13 +7,16 @@ const {
   getUser,
   updateUser,
   deleteUser,
-} = require('./../controllers/userControllers');
+} = require('../controllers/userControllers');
+const { signup } = require('../controllers/authControllers');
 
 /* Middlewares */
 
 const router = express.Router();
 
 /* Routes */
+
+router.post('/signup', signup);
 
 router.route('/').get(getAllUsers).post(createUser);
 router.route('/:id').get(getUser).patch(updateUser).delete(deleteUser);
