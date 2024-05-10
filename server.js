@@ -20,12 +20,13 @@ mongoose
     useFindAndModify: false,
     useUnifiedTopology: true,
   })
-  .then(() => console.log('DB Connection Successful'))
-  .catch((err) =>
-    console.error(
-      `Double check Connection String, either local or remote? ${err}`,
-    ),
-  );
+  .then(() => console.log('DB Connection Successful'));
+// // COMMENTED OUT in favour of Handling UnhandledPromiseRejection
+// .catch((err) =>
+//   console.error(
+//     `Double check Connection String, either local or remote? ${err}`,
+//   ),
+// );
 
 const app = require('./app');
 
@@ -34,6 +35,17 @@ const PORT = process.env.PORT || 3000;
 // console.log(app.get('env'));
 // console.log(process.env);
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`App running on port ${PORT}`);
+});
+
+// Last Safety Net, to catch 'em all, of the unexpected (Expect The Unexpected, "Nobody expects the Spanish Inquisition! Nobody!" )
+process.on('unhandledRejection', (err) => {
+  console.log(err.name, err.message);
+  console.log('🤷‍♂️ UNHANDLED REJECTION! Shutting down...');
+
+  // To give the server the time to finish pending requests
+  server.close(() => {
+    process.exit(1);
+  });
 });
