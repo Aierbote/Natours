@@ -490,3 +490,8 @@ Content-Type: application/json
   "email": "mia@personale.it"
 }
 
+### testing GET /tours for route protection WITH MY RANDOM TOKEN
+
+GET {{baseUrl}}/{{api}}/{{vers}}/tours
+# test-header: erto ## just a silly test
+Authorization: Bearer rAndOMtoKeN.sads.fam
