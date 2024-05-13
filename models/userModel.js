@@ -34,6 +34,7 @@ const userSchema = new mongoose.Schema({
     require: [true, 'A user password is required'],
     trim: true,
     minlength: [8, 'A secure password must be longer than 8 characters'],
+    select: false, // NOTE : SECURITY REASON!
     // validate: [
     //   validator.isAlphanumeric,
     //   'A password must contains numbers, (upper and lower case) letters and special characters',
@@ -65,6 +66,13 @@ userSchema.pre('save', async function (next) {
 
   next();
 });
+
+userSchema.methods.correctPassword = function (
+  candidatePassword,
+  userPassword,
+) {
+  return bcrypt.compare(candidatePassword, userPassword);
+};
 
 // middleware post-save-hook after encrypted the password
 

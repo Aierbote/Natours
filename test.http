@@ -391,7 +391,7 @@ Content-Type: application/json
 
 {
   "name": "alberto",
-  "email": "mia@personale.it",
+  "email": "mia2@personale.it",
   "photo": "🤪",
   "password": "12345678",
   "passwordConfirm": "12345678"
@@ -460,6 +460,33 @@ Content-Type: application/json
   "passwordConfirm": "sudosudo"
 }
 
-###
+### post to login an valid user
 
+POST {{baseUrl}}/{{api}}/{{vers}}/users/login
+Content-Type: application/json
+
+{
+  "password": "12345678",
+  "email": "mia@personale.it"
+}
+
+### post to login WITH WRONG PASSWORD
+
+POST {{baseUrl}}/{{api}}/{{vers}}/users/login
+Content-Type: application/json
+
+{
+  "password": "12345678888",
+  "email": "mia@personale.it"
+}
+
+
+### post to login WITHOUT PASSWORD
+
+POST {{baseUrl}}/{{api}}/{{vers}}/users/login
+Content-Type: application/json
+
+{
+  "email": "mia@personale.it"
+}
 
