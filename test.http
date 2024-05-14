@@ -495,3 +495,37 @@ Content-Type: application/json
 GET {{baseUrl}}/{{api}}/{{vers}}/tours
 # test-header: erto ## just a silly test
 Authorization: Bearer rAndOMtoKeN.sads.fam
+
+### testing GET /tours for route protection WITH VALID TOKEN
+
+GET {{baseUrl}}/{{api}}/{{vers}}/tours
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2U0MDVjMDc2YzdlM2E3ZjM4YTY3ZiIsImlhdCI6MTcxNTY4MjA0MSwiZXhwIjoxNzIzNDU4MDQxfQ.uALX0f94HjfXQLAuT59rIXVymfFuRkBlRGAI5SlLAXg
+
+### testing GET /tours for route protection WITH  TOKEN for INVALID SIGNATURE
+
+GET {{baseUrl}}/{{api}}/{{vers}}/tours
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2U0MDVjMDc2YzdlM2E3ZjM4YTY5UCIsImlhdCI6MTcxNTY3OTEyMywiZXhwIjoxNzIzNDU1MTIzfQ.vs5u5C-8fQOlg2ISr8K3-oBAB0E5TbhiZ1JO3Him1Bs
+
+### testing GET /tours for route protection WITH  TOKEN for EXPIRED SIGNATURE
+
+GET {{baseUrl}}/{{api}}/{{vers}}/tours
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2U0MDVjMDc2YzdlM2E3ZjM4YTY3ZiIsImlhdCI6MTcxNTY4MDk4NywiZXhwIjoxNzE1NjgwOTkwfQ.rGrKl4hfA8tC0o4eA1iYUfO0n7p-FI4J_Yl5CWIo0mo
+
+### testing GET /tour to be a protected route after CHANGE PASSWORD or DELETED USER
+
+# first login with new user
+POST {{baseUrl}}/{{api}}/{{vers}}/users/login
+Content-Type: application/json
+
+{
+  "email": "mia5@personale.it",
+  "password": "12345678"
+}
+
+# second actually testing the protected route with the new token (but ""changed"" manually it's `passwordChangedAt`
+
+GET {{baseUrl}}/{{api}}/{{vers}}/tours
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NDM2NDI1ODYxYTA4NWM0ZmUxODg5ZSIsImlhdCI6MTcxNTcyMDMxMCwiZXhwIjoxNzIzNDk2MzEwfQ.2V51v7GZlxclDZHKWqbJw8ub2CXalwPmP-jhHd5p9zM
+
+###
+

@@ -52,6 +52,7 @@ const userSchema = new mongoose.Schema({
       'Passwords not matching',
     ],
   },
+  passwordChangedAt: Date,
 });
 
 userSchema.pre('save', async function (next) {
@@ -72,6 +73,27 @@ userSchema.methods.correctPassword = function (
   userPassword,
 ) {
   return bcrypt.compare(candidatePassword, userPassword);
+};
+
+userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
+  // let this check happens only if there password has been changed (meaning it won't work on the first change ever)
+  if (this.passwordChangedAt) {
+    // TODO : create a field in the Schema to the JWT expiration/last changed??
+
+    const changedTimestamp = parseInt(
+      this.passwordChangedAt.getTime() / 1000,
+      10,
+    );
+
+    // DEBUG :
+    console.log(changedTimestamp, JWTTimestamp);
+
+    // to see if JWTTimestamp has been surpassed
+    return JWTTimestamp < changedTimestamp; // 100 < 200 cannot change, 300 < 200
+  }
+
+  // False, NOT CHANGED
+  return false;
 };
 
 // middleware post-save-hook after encrypted the password
