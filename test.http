@@ -527,5 +527,10 @@ Content-Type: application/json
 GET {{baseUrl}}/{{api}}/{{vers}}/tours
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NDM2NDI1ODYxYTA4NWM0ZmUxODg5ZSIsImlhdCI6MTcxNTcyMDMxMCwiZXhwIjoxNzIzNDk2MzEwfQ.2V51v7GZlxclDZHKWqbJw8ub2CXalwPmP-jhHd5p9zM
 
-###
+### delte a tour with protected route but RESTRICTED TO COMMON USER
+
+DELETE {{baseUrl}}/{{api}}/{{vers}}/tours/6645f3e358dc88196ddd4492
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NDVlN2MxY2VkZWU4MTcyMGI1NThiNyIsImlhdCI6MTcxNTg2MDk2NSwiZXhwIjoxNzIzNjM2OTY1fQ.G5YaeDQsPgaYNQ5_oOWKJCt45D5Vx_xzRgmm1V3u3hE
+
+
 
