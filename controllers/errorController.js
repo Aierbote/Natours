@@ -1,3 +1,4 @@
+const { Linter } = require('eslint');
 const AppError = require('../utils/appError');
 
 // function to avoid propagating an `isOperational` error into Production
@@ -43,7 +44,7 @@ const sendErrDevs = (err, res) => {
     status: err.status,
     error: err,
     message: err.message,
-    stack: err.stack,
+    stack: err.stack.split('\n').map((line) => line.trim()),
   });
 };
 
