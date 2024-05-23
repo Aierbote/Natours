@@ -88,7 +88,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   if (!currentUser) {
     return next(
       new AppError(
-        'The token belonging to this token does no longer exist',
+        'The user belonging to this token does no longer exist',
         401,
       ),
     );
@@ -118,3 +118,24 @@ exports.restrictTo =
 
     next();
   };
+
+exports.forgotPassword = catchAsync(async (req, res, next) => {
+  // 1) Get user based on POSTed email
+  const user = await User.findOne({ email: req.body.email });
+  if (!user) {
+    return next(new AppError('There is no user with email address', 404));
+  }
+
+  // 2) Generate the random reset token
+  const resetToken = user.createPasswordResetToken();
+  await user.save({ validateBeforeSave: false });
+
+  // 3) Send it to user's email
+
+  res.status(200).json({ log: 'forgotPassword: logging to avoid 404' });
+
+  next();
+});
+exports.resetPassword = (req, res, next) => {
+  next();
+};
