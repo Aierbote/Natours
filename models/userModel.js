@@ -76,6 +76,12 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+userSchema.pre('save', function (next) {
+  if (!this.isModified('password') || this.isNew) return next();
+
+  this.passwordChangedAt = Date.now() - 1000;
+});
+
 userSchema.methods.correctPassword = function (
   candidatePassword,
   userPassword,
@@ -84,20 +90,13 @@ userSchema.methods.correctPassword = function (
 };
 
 userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
-  // let this check happens only if there password has been changed (meaning it won't work on the first change ever)
   if (this.passwordChangedAt) {
-    // TODO : create a field in the Schema to the JWT expiration/last changed??
-
     const changedTimestamp = parseInt(
       this.passwordChangedAt.getTime() / 1000,
       10,
     );
 
-    // DEBUG :
-    console.log(changedTimestamp, JWTTimestamp);
-
-    // to see if JWTTimestamp has been surpassed
-    return JWTTimestamp < changedTimestamp; // 100 < 200 cannot change, 300 < 200
+    return JWTTimestamp < changedTimestamp;
   }
 
   // False, NOT CHANGED
