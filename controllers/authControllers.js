@@ -12,6 +12,18 @@ const signToken = (id) =>
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
 
+const createSendToken = (user, statusCode, res) => {
+  const token = signToken(user._id);
+
+  res.status(statusCode).json({
+    status: 'success',
+    token,
+    data: {
+      user,
+    },
+  });
+};
+
 exports.signup = catchAsync(async (req, res, next) => {
   // const newUser = await User.create(req.body); // WARNING: SECURITY FLAW, a `req.body` could have `photo` and more unintended fields
   const newUser = await User.create({
@@ -25,15 +37,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     passwordChangedAt: req.body.passwordChangedAt,
   });
 
-  const token = signToken(newUser._id);
-
-  res.status(201).json({
-    status: 'success',
-    token,
-    data: {
-      user: newUser,
-    },
-  });
+  createSendToken(newUser, 201, res);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -52,13 +56,7 @@ exports.login = catchAsync(async (req, res, next) => {
   }
 
   // 3) If  everything ok, send token to client
-  const token = signToken(user._id);
-  res.status(200).json({
-    status: 'success',
-    token,
-  });
-
-  // next();
+  createSendToken(user, 200, res);
 });
 
 exports.protect = catchAsync(async (req, res, next) => {
@@ -186,14 +184,10 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 
   await user.save();
 
-  // 3) Update `changedPasswordAt` property for the user // this actually happend with the `pre-save` middleware in the `userModel.js`
+  // 3) Update `changedPasswordAt` property for the user // this actually happens with the `pre-save` middleware in the `userModel.js`
 
   // 4) Log the user in, send JWT
-  const token = signToken(user._id);
-  res.status(200).json({
-    status: 'success',
-    token,
-  });
+  createSendToken(user, 200, res);
 });
 
 exports.updatePassword = catchAsync(async (req, res, next) => {
@@ -218,14 +212,5 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   // NOTE : `User.findByIdAndUpdate` will NOT work as intended!
 
   // 4) Log user in, send JWT
-  const token = signToken(user._id);
-
-  res.status(200).json({
-    status: 'success',
-    data: {
-      token,
-    },
-  });
-
-  next();
+  createSendToken(user, 200, res);
 });
