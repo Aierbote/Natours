@@ -6,14 +6,14 @@ const bcrypt = require('bcryptjs');
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    require: [true, 'A user name is required'],
+    required: [true, 'A user name is required'],
     unique: [true, 'A user name must be unique'],
     trim: true,
     maxlength: [24, 'A user name cannot be longer than 24 characters'],
   },
   email: {
     type: String,
-    require: [true, 'A user email is required'],
+    required: [true, 'A user email is required'],
     unique: [
       true,
       'A user email can be used just for one subscription. TIP: Retrieve/restore your password',
@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    require: [true, 'A user password is required'],
+    required: [true, 'A user password is required'],
     trim: true,
     minlength: [8, 'A secure password must be longer than 8 characters'],
     select: false, // NOTE : SECURITY REASON!
@@ -48,7 +48,7 @@ const userSchema = new mongoose.Schema({
   },
   passwordConfirm: {
     type: String,
-    require: [true, 'A user must type password twice for confirmation'],
+    required: [true, 'A user must type password twice for confirmation'],
     trim: true,
     validate: [
       // this works only CREATE and on SAVE!!
@@ -67,7 +67,7 @@ userSchema.pre('save', async function (next) {
   // to avoid re-encrypting unchanged password
   if (!this.isModified('password')) return next();
 
-  // hashing password with a cost o f12
+  // hashing password with a cost of f12
   this.password = await bcrypt.hash(this.password, 12);
 
   // Delete passwordConfirm field after validation
