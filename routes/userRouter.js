@@ -8,6 +8,7 @@ const {
   updateUser,
   deleteUser,
   updateMe,
+  deleteMe,
 } = require('../controllers/userControllers');
 const {
   signup,
@@ -32,7 +33,10 @@ router.patch('/resetPassword/:token', resetPassword);
 
 router.patch('/updateMyPassword', protect, updatePassword);
 
+// as long as this user is no more available to the public we can use this HTTP Method
 router.patch('/updateMe', protect, updateMe);
+
+router.delete('/deleteMe', protect, deleteMe);
 
 router.route('/').get(getAllUsers).post(createUser);
 router.route('/:id').get(getUser).patch(updateUser).delete(deleteUser);
