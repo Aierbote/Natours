@@ -1,4 +1,3 @@
-const { Linter } = require('eslint');
 const AppError = require('../utils/appError');
 
 // function to avoid propagating an `isOperational` error into Production
@@ -39,14 +38,13 @@ const handleJWTErr = () =>
 const handleJWTExpireErr = () =>
   new AppError('Your token has expired. Please log in again!', 401);
 
-const sendErrDevs = (err, res) => {
+const sendErrDevs = (err, res) =>
   res.status(err.statusCode).json({
     status: err.status,
     error: err,
     message: err.message,
     stack: err.stack.split('\n').map((line) => line.trim()),
   });
-};
 
 const sendErrProd = (err, res) => {
   // Operational, trusted error: send error to Client

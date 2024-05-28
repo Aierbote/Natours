@@ -60,8 +60,6 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
       tours /* explicitly `tours: tours` */,
     },
   });
-
-  next();
 });
 
 exports.updateTour = catchAsync(async (req, res, next) => {
