@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const Tour = require('../../models/tourModel');
 
+// run script from project root directory (not from the base of Jonas' repo)
 dotenv.config({ path: './config.env' });
 
 const DATABASE = process.env.DB_STRING;
@@ -14,27 +15,38 @@ const DB = DATABASE.replace('<USERNAME>', USERNAME).replace(
   PASSWORD,
 );
 
-mongoose
-  .connect(DB, {
-    // .connect(process.env.DB_STRING_LOCAL, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log('DB Connection Successful'))
-  .catch((err) =>
-    console.error(
-      `Double check Connection String, either local or remote? ${err}`,
-    ),
-  );
+// DEBUG :
+console.log('connecting to db');
 
-// READ JSON FILE
-const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours.json`, 'utf-8'));
+// CONNECT TO DATABASE and with async/await Avoiding MongooseError buffering timed out after 10000ms
+(async function () {
+  await mongoose
+    .connect(DB, {
+      // .connect(process.env.DB_STRING_LOCAL, {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useFindAndModify: true, // fix MongooseError buffering timed out after 10000ms
+      useUnifiedTopology: true,
+    })
+    .then(() => console.log('DB Connection Successful'))
+    .catch((err) =>
+      console.error(
+        `Double check Connection String, either local or remote? ${err}`,
+      ),
+    );
+})();
+
+// DEBUG :
+console.log('connected to db');
 
 // IMPORT DATA INTO DATABASE
 const importData = async () => {
   try {
+    // READ JSON FILE
+    const tours = JSON.parse(
+      fs.readFileSync(`${__dirname}/tours.json`, 'utf-8'),
+    );
+
     await Tour.create(tours);
     console.log('🔋 Data successfully loaded!');
   } catch (err) {
@@ -47,6 +59,9 @@ const importData = async () => {
 // DELETE ALL OLD DATA FROM COLLECTION
 const deleteData = async () => {
   try {
+    // DEBUG :
+    console.log('deleting tours from db');
+
     await Tour.deleteMany();
     console.log('🪫 Data successfully deleted!');
   } catch (err) {
@@ -59,7 +74,7 @@ const deleteData = async () => {
 if (process.argv[2] === '--import') importData();
 else if (process.argv[2] === '--delete') deleteData();
 
-setTimeout(() => {
-  console.log('Process Interrupted after 10_000 ms');
-  process.exit();
-}, 10_000);
+// setTimeout(() => {
+//   console.log('Process Interrupted after 10_000 ms');
+//   process.exit();
+// }, 10_000);
