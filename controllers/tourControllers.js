@@ -14,7 +14,7 @@ exports.aliasTopTours = (req, res, next) => {
 /* Route Handlers */
 
 exports.getTour = catchAsync(async (req, res, next) => {
-  const tour = await Tour.findById(req.params.id);
+  const tour = await Tour.findById(req.params.id).populate('reviews');
 
   if (!tour) {
     return next(new AppError(`No tour found with _id ${req.params.id} `, 404));
@@ -26,8 +26,6 @@ exports.getTour = catchAsync(async (req, res, next) => {
       tour,
     },
   });
-
-  next();
 });
 
 exports.createTour = catchAsync(async (req, res, next) => {
@@ -39,8 +37,6 @@ exports.createTour = catchAsync(async (req, res, next) => {
       tour: newTour,
     },
   });
-
-  next();
 });
 
 exports.getAllTours = catchAsync(async (req, res, next) => {
@@ -78,8 +74,6 @@ exports.updateTour = catchAsync(async (req, res, next) => {
       tour,
     },
   });
-
-  next();
 });
 
 exports.deleteTour = catchAsync(async (req, res, next) => {
@@ -93,8 +87,6 @@ exports.deleteTour = catchAsync(async (req, res, next) => {
     status: 'success',
     data: null,
   });
-
-  next();
 });
 
 exports.getTourStats = catchAsync(async (req, res, next) => {
@@ -127,8 +119,6 @@ exports.getTourStats = catchAsync(async (req, res, next) => {
       stats,
     },
   });
-
-  next();
 });
 
 exports.getMonthlyPlan = catchAsync(async (req, res, next) => {
@@ -177,6 +167,4 @@ exports.getMonthlyPlan = catchAsync(async (req, res, next) => {
       plan,
     },
   });
-
-  next();
 });
