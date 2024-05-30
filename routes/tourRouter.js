@@ -12,10 +12,17 @@ const {
   getMonthlyPlan,
 } = require('../controllers/tourControllers');
 const { protect, restrictTo } = require('../controllers/authControllers');
+const reviewRouter = require('./reviewRoutes');
 
 /* Middlewares */
 
 const router = express.Router();
+
+// Nested Routes
+
+router.use('/:tourId/reviews', reviewRouter);
+
+// Non-Nested Routes
 
 router.route('/top-5-cheap').get(aliasTopTours, getAllTours);
 router.route('/tour-stats').get(getTourStats);

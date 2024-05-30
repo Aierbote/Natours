@@ -6,7 +6,7 @@ const {
 } = require('../controllers/reviewController');
 const { protect, restrictTo } = require('../controllers/authControllers');
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 router
   .route('/')
