@@ -44,9 +44,6 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   // 2) Filtered out unwanted fields name that are not allowed to be updated
   const filteredBody = filterObj(req.body, 'name', 'email');
 
-  // DEBUG :
-  console.log(filteredBody);
-
   if (!filteredBody) {
     return new AppError('No data to update', 400);
   }
@@ -69,7 +66,7 @@ exports.createUser = (req, res) => {
   res.status(500).json({
     status: 'error',
     data: {
-      message: 'Not Yet Implemented',
+      message: 'This route is not defined! Please use `/signup` instead',
     },
   });
 };
@@ -83,14 +80,7 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    data: {
-      message: 'Not Yet Implemented',
-    },
-  });
-};
+exports.getUser = factory.getOne(User);
 
 // DO NOT update passwords with this!
 exports.updateUser = factory.updateOne(User);
