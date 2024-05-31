@@ -80,6 +80,8 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getAllUsers = factory.getAll(User);
+
 exports.getUser = factory.getOne(User);
 
 // DO NOT update passwords with this!

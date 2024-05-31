@@ -1,5 +1,4 @@
 const Tour = require('../models/tourModel');
-const { APIFeatures } = require('../utils/apiFeatures');
 const catchAsync = require('../utils/catchAsync');
 const factory = require('./handlerFactory');
 
@@ -17,24 +16,7 @@ exports.getTour = factory.getOne(Tour, { path: 'reviews' });
 
 exports.createTour = factory.createOne(Tour);
 
-exports.getAllTours = catchAsync(async (req, res, next) => {
-  // EXECUTE THE QUERY
-  const features = new APIFeatures(Tour.find(), req.query)
-    .filter()
-    .sort()
-    .limitFields()
-    .paginate();
-  const tours = await features.query;
-
-  // SEND RESPONSE
-  res.status(200).json({
-    status: 'success',
-    results: tours.length, // NOTE : not a standard, but useful for counting multiple objects in array
-    data: {
-      tours /* explicitly `tours: tours` */,
-    },
-  });
-});
+exports.getAllTours = factory.getAll(Tour);
 
 exports.updateTour = factory.updateOne(Tour);
 
