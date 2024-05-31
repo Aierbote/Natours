@@ -19,3 +19,27 @@ exports.deleteOne = (Model) =>
       data: null,
     });
   });
+
+exports.updateOne = (Model) =>
+  catchAsync(async (req, res, next) => {
+    const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!doc) {
+      return next(
+        new AppError(
+          `No ${Model.modelName} found with _id ${req.params.id} `,
+          404,
+        ),
+      );
+    }
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        data: doc,
+      },
+    });
+  });
