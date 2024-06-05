@@ -72,7 +72,7 @@ userSchema.pre('save', async function (next) {
   // to avoid re-encrypting unchanged password
   if (!this.isModified('password')) return next();
 
-  // hashing password with a cost of f12
+  // hashing password with a cost of 12
   this.password = await bcrypt.hash(this.password, 12);
 
   // Delete passwordConfirm field after validation

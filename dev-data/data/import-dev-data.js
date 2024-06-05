@@ -2,6 +2,8 @@ const fs = require('fs');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const Tour = require('../../models/tourModel');
+const User = require('../../models/userModel');
+const Review = require('../../models/reviewModel');
 
 // run script from project root directory (not from the base of Jonas' repo)
 dotenv.config({ path: './config.env' });
@@ -42,12 +44,20 @@ console.log('connected to db');
 // IMPORT DATA INTO DATABASE
 const importData = async () => {
   try {
-    // READ JSON FILE
+    // READ JSON FILES
     const tours = JSON.parse(
       fs.readFileSync(`${__dirname}/tours.json`, 'utf-8'),
     );
+    const users = JSON.parse(
+      fs.readFileSync(`${__dirname}/users.json`, 'utf-8'),
+    );
+    const reviews = JSON.parse(
+      fs.readFileSync(`${__dirname}/reviews.json`, 'utf-8'),
+    );
 
     await Tour.create(tours);
+    await User.create(users, { validateBeforeSave: false });
+    await Review.create(reviews);
     console.log('🔋 Data successfully loaded!');
   } catch (err) {
     console.log(`Error: ${err}`);
@@ -59,10 +69,17 @@ const importData = async () => {
 // DELETE ALL OLD DATA FROM COLLECTION
 const deleteData = async () => {
   try {
-    // DEBUG :
-    console.log('deleting tours from db');
-
     await Tour.deleteMany();
+    // DEBUG :
+    console.log('deleted tours from db');
+
+    await User.deleteMany();
+    // DEBUG :
+    console.log('deleted users from db');
+
+    await Review.deleteMany();
+    // DEBUG :
+    console.log('deleted reviews from db');
     console.log('🪫 Data successfully deleted!');
   } catch (err) {
     console.log(`Error ${err}`);
