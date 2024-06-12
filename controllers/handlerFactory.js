@@ -1,6 +1,7 @@
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const { APIFeatures } = require('../utils/apiFeatures');
+const Tour = require('../models/tourModel');
 
 exports.deleteOne = (Model) =>
   catchAsync(async (req, res, next) => {
@@ -47,6 +48,16 @@ exports.updateOne = (Model) =>
 
 exports.createOne = (Model) =>
   catchAsync(async (req, res, next) => {
+    if (Model.modelName === 'Review' && !!req.body.tour) {
+      const tourForReview = await Tour.findById(req.body.tour);
+
+      if (!tourForReview) {
+        return next(
+          new AppError(`No tour found with _id ${req.body.tour} `, 404),
+        );
+      }
+    }
+
     const newDoc = await Model.create(req.body);
 
     res.status(201).json({
