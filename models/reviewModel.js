@@ -110,13 +110,16 @@ reviewSchema.post('save', function () {
 reviewSchema.pre(/^findOneAnd/, async function (next) {
   this.r = await this.findOne();
   console.log(this.r);
+
+  next();
 });
 
-reviewSchema.post(/^findOneAnd/, async function (docs, next) {
+reviewSchema.post(/^findOneAnd/, async (docs) => {
+  // NOTE : depending the case it might need a `docs` parameter
   // await this.findOne(); // does NOT work here, query has already been executed
 
-  await this.r.constructor.calcAverageRatings(this.r.tour);
-  next();
+  if (!docs) return console.log('ID ERROR'); // new AppError('No Document Found With That ID', 404)
+  if (docs.constructor) await docs.constructor.calcAverageRatings(docs.tour);
 });
 
 const Review = mongoose.model('Review', reviewSchema);
