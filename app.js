@@ -81,6 +81,18 @@ app.use((req, res, next) => {
 
 // Routes
 
+app.get('/overview', (req, res) => {
+  res.status(200).render('overview', {
+    title: 'All Tours',
+  });
+});
+
+app.get('/tour', (req, res) => {
+  res.status(200).render('tour', {
+    title: 'The Forest Hiker',
+  });
+});
+
 app.use('/', (req, res) => {
   res.set('Content-Security-Policy', "default-src 'self'");
   res.status(200).render('base', {
