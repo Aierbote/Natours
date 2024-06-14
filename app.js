@@ -15,6 +15,9 @@ const globalErrorHandler = require('./controllers/errorController');
 
 const app = express();
 
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
+
 /* GLOBAL Middlewares */
 
 // Serving static files
@@ -76,7 +79,17 @@ app.use((req, res, next) => {
 //   res.send('You can post to this endpoint..');
 // });
 
-/* Routes
+// Routes
+
+app.use('/', (req, res) => {
+  res.set('Content-Security-Policy', "default-src 'self'");
+  res.status(200).render('base', {
+    tour: 'The Forest Hiker',
+    user: 'Betto',
+  });
+});
+
+/*
 
 // // Version 1: Refactoring more readable and declarative look
 // app.get('/api/v1/tours', getAllTours);
