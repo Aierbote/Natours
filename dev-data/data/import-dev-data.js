@@ -1,3 +1,4 @@
+const path = require('path');
 const fs = require('fs');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
@@ -46,13 +47,13 @@ const importData = async () => {
   try {
     // READ JSON FILES
     const tours = JSON.parse(
-      fs.readFileSync(`${__dirname}/tours.json`, 'utf-8'),
+      fs.readFileSync(path.join(__dirname, 'tours.json'), 'utf-8'),
     );
     const users = JSON.parse(
-      fs.readFileSync(`${__dirname}/users.json`, 'utf-8'),
+      fs.readFileSync(path.join(__dirname, 'users.json'), 'utf-8'),
     );
     const reviews = JSON.parse(
-      fs.readFileSync(`${__dirname}/reviews.json`, 'utf-8'),
+      fs.readFileSync(path.join(__dirname, 'reviews.json'), 'utf-8'),
     );
 
     await Tour.create(tours);
