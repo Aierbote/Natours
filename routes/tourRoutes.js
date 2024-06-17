@@ -1,8 +1,8 @@
 const express = require('express');
 
 /* Route Handlers */
-const tourController = require('../controllers/tourControllers');
-const authController = require('../controllers/authControllers');
+const tourController = require('../controllers/tourController');
+const authController = require('../controllers/authController');
 const reviewRouter = require('./reviewRoutes');
 
 /* Middlewares */
