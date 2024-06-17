@@ -1,19 +1,8 @@
 const express = require('express');
 
 /* Route Handlers */
-const {
-  getTour,
-  createTour,
-  getAllTours,
-  updateTour,
-  deleteTour,
-  aliasTopTours,
-  getTourStats,
-  getMonthlyPlan,
-  getToursWithin,
-  getDistances,
-} = require('../controllers/tourControllers');
-const { protect, restrictTo } = require('../controllers/authControllers');
+const tourController = require('../controllers/tourControllers');
+const authController = require('../controllers/authControllers');
 const reviewRouter = require('./reviewRoutes');
 
 /* Middlewares */
@@ -26,27 +15,45 @@ router.use('/:tourId/reviews', reviewRouter);
 
 // Non-Nested Routes
 
-router.route('/top-5-cheap').get(aliasTopTours, getAllTours);
-router.route('/tour-stats').get(getTourStats);
+router
+  .route('/top-5-cheap')
+  .get(tourController.aliasTopTours, tourController.getAllTours);
+router.route('/tour-stats').get(tourController.getTourStats);
 
 router
   .route('/monthly-plan/:year')
-  .get(protect, restrictTo('admin', 'lead-guide', 'guide'), getMonthlyPlan);
+  .get(
+    authController.protect,
+    authController.restrictTo('admin', 'lead-guide', 'guide'),
+    tourController.getMonthlyPlan,
+  );
 
 router
   .route('/tours-within/:distance/center/:latlng/unit/:unit')
-  .get(getToursWithin);
+  .get(tourController.getToursWithin);
 
-router.route('/distances/:latlng/unit/:unit').get(getDistances);
+router.route('/distances/:latlng/unit/:unit').get(tourController.getDistances);
 
 router
   .route('/')
-  .get(getAllTours)
-  .post(protect, restrictTo('admin', 'lead-guide'), createTour);
+  .get(tourController.getAllTours)
+  .post(
+    authController.protect,
+    authController.restrictTo('admin', 'lead-guide'),
+    tourController.createTour,
+  );
 router
   .route('/:id')
-  .get(getTour)
-  .patch(protect, restrictTo('admin', 'lead-guide'), updateTour)
-  .delete(protect, restrictTo('admin', 'lead-guide'), deleteTour);
+  .get(tourController.getTour)
+  .patch(
+    authController.protect,
+    authController.restrictTo('admin', 'lead-guide'),
+    tourController.updateTour,
+  )
+  .delete(
+    authController.protect,
+    authController.restrictTo('admin', 'lead-guide'),
+    tourController.deleteTour,
+  );
 
 module.exports = router;

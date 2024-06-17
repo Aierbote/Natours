@@ -1,25 +1,8 @@
 const express = require('express');
 
 /* Route Handlers */
-const {
-  getAllUsers,
-  createUser,
-  getUser,
-  updateUser,
-  deleteUser,
-  updateMe,
-  deleteMe,
-  getMe,
-} = require('../controllers/userControllers');
-const {
-  signup,
-  login,
-  forgotPassword,
-  resetPassword,
-  updatePassword,
-  protect,
-  restrictTo,
-} = require('../controllers/authControllers');
+const userController = require('../controllers/userControllers');
+const authController = require('../controllers/authControllers');
 
 /* Middlewares */
 
@@ -27,29 +10,36 @@ const router = express.Router();
 
 /* Routes */
 
-router.post('/signup', signup);
-router.post('/login', login);
+router.post('/signup', authController.signup);
+router.post('/login', authController.login);
 
-router.post('/forgotPassword', forgotPassword);
-router.patch('/resetPassword/:token', resetPassword);
+router.post('/forgotPassword', authController.forgotPassword);
+router.patch('/resetPassword/:token', authController.resetPassword);
 
 /* Protected Routes */
 
 // Protect all routes after this middleware
-router.use(protect);
+router.use(authController.protect);
 
-router.patch('/updateMyPassword', updatePassword);
+router.patch('/updateMyPassword', authController.updatePassword);
 
-router.get('/me', getMe, getUser);
+router.get('/me', userController.getMe, userController.getUser);
 
-router.patch('/updateMe', updateMe);
+router.patch('/updateMe', userController.updateMe);
 
-router.delete('/deleteMe', deleteMe);
+router.delete('/deleteMe', userController.deleteMe);
 
 // Restrict all routes after this middleware
-router.use(restrictTo('admin'));
+router.use(authController.restrictTo('admin'));
 
-router.route('/').get(getAllUsers).post(createUser);
-router.route('/:id').get(getUser).patch(updateUser).delete(deleteUser);
+router
+  .route('/')
+  .get(userController.getAllUsers)
+  .post(userController.createUser);
+router
+  .route('/:id')
+  .get(userController.getUser)
+  .patch(userController.updateUser)
+  .delete(userController.deleteUser);
 
 module.exports = router;
