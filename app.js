@@ -8,10 +8,11 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 
 const AppError = require('./utils/appError');
+const globalErrorHandler = require('./controllers/errorController');
 const tourRouter = require('./routes/tourRouter');
 const userRouter = require('./routes/userRouter');
 const reviewRouter = require('./routes/reviewRoutes');
-const globalErrorHandler = require('./controllers/errorController');
+const viewRouter = require('./routes/viewRoutes');
 
 const app = express();
 
@@ -81,26 +82,6 @@ app.use((req, res, next) => {
 
 // Routes
 
-app.get('/overview', (req, res) => {
-  res.status(200).render('overview', {
-    title: 'All Tours',
-  });
-});
-
-app.get('/tour', (req, res) => {
-  res.status(200).render('tour', {
-    title: 'The Forest Hiker',
-  });
-});
-
-app.use('/', (req, res) => {
-  res.set('Content-Security-Policy', "default-src 'self'");
-  res.status(200).render('base', {
-    tour: 'The Forest Hiker',
-    user: 'Betto',
-  });
-});
-
 /*
 
 // // Version 1: Refactoring more readable and declarative look
@@ -115,6 +96,7 @@ app.use('/', (req, res) => {
 */
 
 // Mounting The Router
+app.use('/', viewRouter);
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
