@@ -10,8 +10,8 @@ exports.getOverview = catchAsync(async (req, res, next) => {
   // 3) Render that template using tour data from 1)
 
   res.status(200).render('overview', {
-    title: 'All Tours',
-    tours, // let's add this to let the pug file access the tours data
+    title: 'Exciting tours for adventurous people',
+    tours,
   });
 });
 
@@ -26,6 +26,7 @@ exports.getTour = catchAsync(async (req, res, next) => {
   // 3) Render template using data from 1)
 
   res.status(200).render('tour', {
+    title: `${tour.name} Tour`,
     tour,
   });
 });
