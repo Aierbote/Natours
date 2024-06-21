@@ -78,11 +78,10 @@ exports.protect = catchAsync(async (req, res, next) => {
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')
   ) {
-    // const token = req.headers.authorization.split(' ')[1]; // THE IDEA, but it's just local-scope, SO WE NEED THE `let token` OUTSIDE THE IF STATEMENT
     token = req.headers.authorization.split(' ')[1];
+  } else if (req.cookies.jwt) {
+    token = req.cookies.jwt;
   }
-  // // DEBUG :
-  // console.log('token: ', token);
 
   if (!token) {
     return next(
