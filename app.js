@@ -29,14 +29,16 @@ app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
+        'default-src': ["'self'"],
         'script-src-elem': [
           "'self'",
-          'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
-          // "'unsafe-inline'",
+          'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js ',
+          'https://unpkg.com/axios/dist/axios.min.js',
         ],
         'script-src': [
           "'self'",
           'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
+          'https://unpkg.com/axios/dist/axios.min.js',
           // "'unsafe-inline'",
         ],
         'style-src': [
