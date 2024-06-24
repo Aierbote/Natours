@@ -30,7 +30,8 @@ app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
-        'default-src': ["'self'"],
+        'connect-src': ["'self'", 'ws://localhost:1234'],
+        'default-src': ["'self'", 'ws://localhost:1234'],
         'script-src-elem': [
           "'self'",
           'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js ',
