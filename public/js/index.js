@@ -1,12 +1,13 @@
 import 'core-js';
 import 'regenerator-runtime/runtime';
 
-import { login } from './login';
+import { login, logout } from './login';
 import { displayMap } from './leaflet';
 
 // DOM ELEMENTS
 const leaflet = document.getElementById('map');
 const loginForm = document.querySelector('.form');
+const logOutBtn = document.querySelector('.nav__el--logout');
 
 // DELEGATION
 if (leaflet) {
@@ -23,4 +24,9 @@ if (loginForm) {
     const password = document.getElementById('password').value;
     login(email, password);
   });
+}
+
+if (logOutBtn) {
+  console.log(logOutBtn);
+  logOutBtn.addEventListener('click', logout);
 }
