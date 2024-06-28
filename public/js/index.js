@@ -6,7 +6,7 @@ import { displayMap } from './leaflet';
 
 // DOM ELEMENTS
 const leaflet = document.getElementById('map');
-const loginForm = document.querySelector('.form');
+const loginForm = document.querySelector('.form--login ');
 const logOutBtn = document.querySelector('.nav__el--logout');
 
 // DELEGATION
