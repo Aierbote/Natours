@@ -3,11 +3,13 @@ import 'regenerator-runtime/runtime';
 
 import { login, logout } from './login';
 import { displayMap } from './leaflet';
+import { updateData } from './updateSettings';
 
 // DOM ELEMENTS
 const leaflet = document.getElementById('map');
 const loginForm = document.querySelector('.form--login ');
 const logOutBtn = document.querySelector('.nav__el--logout');
+const userDataForm = document.querySelector('.form-user-data');
 
 // DELEGATION
 if (leaflet) {
@@ -29,4 +31,14 @@ if (loginForm) {
 if (logOutBtn) {
   console.log(logOutBtn);
   logOutBtn.addEventListener('click', logout);
+}
+
+if (userDataForm) {
+  userDataForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+
+    updateData(name, email);
+  });
 }
