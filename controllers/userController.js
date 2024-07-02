@@ -36,6 +36,10 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 });
 
 exports.updateMe = catchAsync(async (req, res, next) => {
+  // DEBUG :
+  console.log(req.file ? req.file : 'No file');
+  console.log(req.body);
+
   // 1) Create error if POSTs password data
   if (req.body.password || req.body.passwordConfirm) {
     return next(
