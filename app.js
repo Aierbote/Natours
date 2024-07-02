@@ -97,7 +97,7 @@ app.use(
       'price',
     ],
   }),
-);1
+);
 
 // Test middleware
 app.use((req, res, next) => {

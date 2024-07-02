@@ -7,7 +7,6 @@ const authController = require('../controllers/authController');
 
 /* Middlewares */
 
-// NOTE : `dest` short for destination. It is the folder where the uploaded files will be stored.
 const upload = multer({ dest: '/public/img/users' });
 
 const router = express.Router();
