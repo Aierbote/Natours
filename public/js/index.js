@@ -35,16 +35,31 @@ if (logOutBtn) {
 }
 
 if (userDataForm) {
+  const photoElem = document.getElementById('photo');
+
+  photoElem.addEventListener('change', (e) => {
+    const [newFile] = e.target.files;
+
+    console.log(newFile);
+
+    if (newFile && newFile.type.startsWith('image')) {
+      const formUserPhoto = document.querySelector('.form__user-photo');
+      formUserPhoto.src = URL.createObjectURL(newFile);
+    }
+  });
+
   userDataForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    document.getElementById('btn--saveSettings').textContent = 'Updating...';
 
     const form = new FormData();
     form.append('name', document.getElementById('name').value);
     form.append('email', document.getElementById('email').value);
-    form.append('photo', document.getElementById('photo').files[0]);
+    form.append('photo', photoElem.files[0]);
 
     await updateSettings(form, 'data');
 
+    document.getElementById('btn--saveSettings').textContent = 'Save Settings';
   });
 }
 

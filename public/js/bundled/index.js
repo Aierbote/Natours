@@ -689,15 +689,27 @@ if (logOutBtn) {
     console.log(logOutBtn);
     logOutBtn.addEventListener("click", (0, _login.logout));
 }
-if (userDataForm) userDataForm.addEventListener("submit", (e)=>{
-    e.preventDefault();
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    (0, _updateSettings.updateSettings)({
-        name,
-        email
-    }, "data");
-});
+if (userDataForm) {
+    const photoElem = document.getElementById("photo");
+    photoElem.addEventListener("change", (e)=>{
+        const [newFile] = e.target.files;
+        console.log(newFile);
+        if (newFile && newFile.type.startsWith("image")) {
+            const formUserPhoto = document.querySelector(".form__user-photo");
+            formUserPhoto.src = URL.createObjectURL(newFile);
+        }
+    });
+    userDataForm.addEventListener("submit", async (e)=>{
+        e.preventDefault();
+        document.getElementById("btn--saveSettings").textContent = "Updating...";
+        const form = new FormData();
+        form.append("name", document.getElementById("name").value);
+        form.append("email", document.getElementById("email").value);
+        form.append("photo", photoElem.files[0]);
+        await (0, _updateSettings.updateSettings)(form, "data");
+        document.getElementById("btn--saveSettings").textContent = "Save Settings";
+    });
+}
 if (userPasswordForm) userPasswordForm.addEventListener("submit", async (e)=>{
     e.preventDefault();
     document.querySelector(".btn--save-password").textContent = "Updating...";

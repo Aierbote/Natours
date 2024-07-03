@@ -51,6 +51,7 @@ app.use(
         'img-src': [
           "'self'",
           'data:',
+          'blob:',
           'https://*.openstreetmap.org',
           'https://unpkg.com',
         ],
