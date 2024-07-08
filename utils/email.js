@@ -8,13 +8,26 @@ module.exports = class Email {
     this.firstName = user.name.split(' ')[0];
     this.url = url;
 
-    this.from = `Alberto Cangialosi (Jonas Schmedtmann) <${process.env.EMAIL_FROM}>`;
+    this.from =
+      process.env.NODE_ENV === 'production'
+        ? `Alberto Cangialosi <${process.env.EMAIL_FROM_PROD}>`
+        : `Alberto Cangialosi <${process.env.EMAIL_FROM}>`;
   }
 
   newTransport() {
-    if (process.env.NODE_env === 'production') {
-      // Later one with Sendgrid
-      return 1;
+    if (process.env.NODE_ENV === 'production') {
+      return nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          type: 'OAuth2',
+          user: process.env.MAIL_USERNAME,
+          pass: process.env.MAIL_PASSWORD,
+          clientId: process.env.OAUTH_CLIENTID,
+          clientSecret: process.env.OAUTH_CLIENT_SECRET,
+          refreshToken: process.env.OAUTH_REFRESH_TOKEN,
+          accessToken: process.env.OAUTH_ACCESS_TOKEN,
+        },
+      });
     }
 
     return nodemailer.createTransport({
