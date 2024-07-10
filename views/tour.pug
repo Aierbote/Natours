@@ -7,6 +7,7 @@ block append head
     integrity='sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=',
     crossorigin='anonymous'
   )
+  script(src='https://js.stripe.com/v3/')
 
 include _reviewCard
 
@@ -103,4 +104,10 @@ block content
       .cta__content
         h2.heading-secondary What are you waiting for?
         p.cta__text #{ tour.duration } days. 1 adventure. Infinite memories. Make it yours today!
-        button.btn.btn--green.span-all-rows Book tour now!
+
+        if (user)
+          button#book-tour.btn.btn--green.span-all-rows(
+            data-tour-id=`${tour.id}`
+          ) Book tour now!
+        else
+          a.btn.btn--green.span-all-rows(href='/login') Log in to book tour!

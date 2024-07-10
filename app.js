@@ -32,11 +32,16 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         'connect-src': ["'self'", 'ws://localhost:1234'],
-        'default-src': ["'self'", 'ws://localhost:1234'],
+        'default-src': [
+          "'self'",
+          'ws://localhost:1234',
+          'https://js.stripe.com/v3/',
+        ],
         'script-src-elem': [
           "'self'",
           'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js ',
           'https://unpkg.com/axios/dist/axios.min.js',
+          'https://js.stripe.com/v3/',
         ],
         'script-src': [
           "'self'",
