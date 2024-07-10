@@ -1,3 +1,5 @@
+import L from 'leaflet';
+
 export const displayMap = (locations) => {
   // adding the map to the `div#map`
   // set up the map without zoom Control`
