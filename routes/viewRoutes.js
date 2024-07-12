@@ -21,6 +21,7 @@ router.get('/login', authController.isLoggedIn, viewController.login);
 // PROTECTED ROUTES
 
 router.get('/me', authController.protect, viewController.getAccount);
+router.get('/my-tours', authController.protect, viewController.getMyTours);
 
 router.post(
   '/submit-user-data',
