@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const bookingSchema = new mongoose.Schema({
-  // NOTE : we are going to use Parent Referencing here.
   tour: {
     type: mongoose.Schema.ObjectId,
     ref: 'Tour',
@@ -20,7 +19,6 @@ const bookingSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
-  // NOTE : case limit admin can create one for Postman testing
   paid: {
     type: Boolean,
     default: true,
@@ -32,7 +30,6 @@ const bookingSchema = new mongoose.Schema({
 // QUERY MIDDLEWARE
 
 bookingSchema.pre(/^find/, function (next) {
-  // NOTE : we won't have too many query for this Entity, so it won't be an Efficiency issue, only Tour Guides or Admin will be able to query these.
   this.populate('user').populate({
     path: 'tour',
     select: 'name',
