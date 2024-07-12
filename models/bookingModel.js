@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const bookingSchema = new mongoose.Schema({
+<<<<<<< HEAD
+=======
+  // NOTE : we are going to use Parent Referencing here.
+>>>>>>> b67c2c454026bff7447fae21d259523f166c4760
   tour: {
     type: mongoose.Schema.ObjectId,
     ref: 'Tour',
