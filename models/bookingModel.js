@@ -34,6 +34,8 @@ bookingSchema.pre(/^find/, function (next) {
     path: 'tour',
     select: 'name',
   });
+
+  next();
 });
 
 // AGGREGATION MIDDLEWARE
