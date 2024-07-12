@@ -183,11 +183,11 @@ tourSchema.pre(/^find/, function (next) {
   next();
 });
 
-tourSchema.post(/^find/, function (docs, next) {
-  console.log(`Query look ${Date.now() - this.start} milliseconds`);
+// tourSchema.post(/^find/, function (docs, next) {
+//   console.log(`Query look ${Date.now() - this.start} milliseconds`);
 
-  next();
-});
+//   next();
+// });
 
 // AGGREGATION MIDDLEWARE
 

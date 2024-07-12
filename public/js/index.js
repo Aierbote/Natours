@@ -22,8 +22,6 @@ if (leaflet) {
 
 if (loginForm) {
   loginForm.addEventListener('submit', (e) => {
-    console.log('try to make login work again');
-
     e.preventDefault();
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
@@ -36,12 +34,12 @@ if (logOutBtn) {
 }
 
 if (userDataForm) {
+  const TEST_DEBUG = false;
+
   const photoElem = document.getElementById('photo');
 
   photoElem.addEventListener('change', (e) => {
     const [newFile] = e.target.files;
-
-    console.log(newFile);
 
     if (newFile && newFile.type.startsWith('image')) {
       const formUserPhoto = document.querySelector('.form__user-photo');

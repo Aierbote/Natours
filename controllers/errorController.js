@@ -109,11 +109,6 @@ module.exports = (err, req, res, next) => {
 
     let error = Object.create(err);
 
-    // // DEBUG : spot the difference with or without the correction about the spread operator
-    // console.log(error);
-    // console.log(err.name);
-    // console.log(error.name);
-
     if (error.name === 'CastError') error = handleCastErrDB(error);
     if (error.code === 11000) error = handleDuplicateFieldsDB(error);
     if (error.name === 'ValidationError') error = handleValidationErrDB(error);

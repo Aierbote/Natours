@@ -71,16 +71,8 @@ const importData = async () => {
 const deleteData = async () => {
   try {
     await Tour.deleteMany();
-    // DEBUG :
-    console.log('deleted tours from db');
-
     await User.deleteMany();
-    // DEBUG :
-    console.log('deleted users from db');
-
     await Review.deleteMany();
-    // DEBUG :
-    console.log('deleted reviews from db');
     console.log('🪫 Data successfully deleted!');
   } catch (err) {
     console.log(`Error ${err}`);
