@@ -3,14 +3,16 @@
   "version": "1.0.0",
   "description": "Learning Node Express and MongoDB",
   "targets": {
-    "main": false
+    "main": {
+      "optimize": true
+    }
   },
   "scripts": {
     "start": "nodemon server.js",
     "start:prod": "npm run env NODE_ENV=production nodemon server.js",
     "debug": "ndb server.js",
-    "watch:js": "parcel watch public/js/index.js --dist-dir public/js/bundled",
-    "build:js": "parcel build public/js/index.js --dist-dir public/js/bundled"
+    "watch:js": "parcel watch ./public/js/index.js --dist-dir ./public/js/bundled",
+    "build:js": "parcel build ./public/js/index.js --dist-dir ./public/js/bundled"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "author": "Alberto Cangialosi",
@@ -39,7 +41,7 @@
     "sharp": "^0.33.4",
     "slugify": "^1.6.6",
     "stripe": "^16.2.0",
-    "validator": "^10.11.0",
+    "validator": "^13.12.0",
     "xss-clean": "^0.1.4"
   },
   "devDependencies": {
@@ -53,7 +55,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^5.1.3",
     "eslint-plugin-react": "^7.34.1",
-    "ndb": "^1.1.5",
+    "ndb": "^0.2.4",
     "nodemon": "^3.1.0",
     "parcel": "^2.12.0",
     "prettier": "^3.2.5"
