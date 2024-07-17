@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Learning Node Express and MongoDB",
   "targets": {
-    "main": {
+    "browser": {
       "optimize": true,
       "outputFormat": "commonjs"
     }
