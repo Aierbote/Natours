@@ -6,9 +6,11 @@
   "engines": {
     "node": ">=8.3"
   },
-  "main": "app.js",
   "targets": {
-    "main": false
+    "main": {
+      "optimize": true,
+      "outputFormat": "commonjs"
+    }
   },
   "scripts": {
     "start": "nodemon server.js",
@@ -35,6 +37,7 @@
     "hpp": "^0.2.3",
     "html-to-text": "^9.0.5",
     "jsonwebtoken": "^9.0.2",
+    "leaflet": "^1.9.4",
     "mongodb": "^6.5.0",
     "mongoose": "^5.13.22",
     "morgan": "^1.10.0",
