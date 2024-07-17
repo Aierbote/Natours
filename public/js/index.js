@@ -1,5 +1,5 @@
-import 'core-js';
-import 'regenerator-runtime/runtime';
+// import 'core-js';
+// import 'regenerator-runtime/runtime';
 
 import { login, logout } from './login';
 import { displayMap } from './leaflet';

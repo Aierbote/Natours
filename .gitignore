@@ -1,9 +1,6 @@
 # Created by https://www.toptal.com/developers/gitignore/api/macos,visualstudiocode,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,visualstudiocode,node
 
-### config for Env Var inside 4-natours
-4-natours/starter/config.env
-
 ### macOS ###
 # General
 .DS_Store
