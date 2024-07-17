@@ -3,11 +3,9 @@
   "version": "1.0.0",
   "description": "Learning Node Express and MongoDB",
   "targets": {
-    "main": {
-      "optimize": true
-    },
     "default": {
-      "distDir": "./public"
+      "optimize": true,
+      "distDir": "./public/js/bundled"
     }
   },
   "scripts": {
