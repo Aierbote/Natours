@@ -1,4 +1,6 @@
 import axios from 'axios';
+
+import 'core-js';
 import { showAlert } from './alerts';
 
 export const login = async (email, password) => {

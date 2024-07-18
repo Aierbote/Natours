@@ -1,4 +1,3 @@
-import 'core-js';
 import { login, logout } from './login';
 import { displayMap } from './leaflet';
 import { updateSettings } from './updateSettings';
