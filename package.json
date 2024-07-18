@@ -2,12 +2,12 @@
   "name": "natours",
   "version": "1.0.0",
   "description": "Learning Node Express and MongoDB",
+  "type": "commonjs",
   "targets": {
     "main": false,
     "browser": {
       "context": "browser",
-      "optimize": true,
-      "outputFormat": "esmodule"
+      "optimize": true
     }
   },
   "scripts": {
