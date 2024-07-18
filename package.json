@@ -3,11 +3,7 @@
   "version": "1.0.0",
   "description": "Learning Node Express and MongoDB",
   "targets": {
-    "main": {
-      "context": "node",
-      "optimize": true,
-      "outputFormat": "commonjs"
-    },
+    "main": false,
     "browser": {
       "context": "browser",
       "optimize": true,
@@ -20,7 +16,7 @@
     "start:prod": "cross-env NODE_ENV=production nodemon server.js",
     "debug": "ndb server.js",
     "watch:js": "parcel watch ./public/js/index.js --dist-dir ./public/js/bundled",
-    "build:js": "parcel build ./public/js/index.js --dist-dir ./public/js/bundled"
+    "build:js": "parcel build ./public/js/index.js --dist-dir ./public/js/bundled --target browser"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "author": "Alberto Cangialosi",
@@ -71,5 +67,7 @@
     "parcel": "^2.12.0",
     "prettier": "^3.2.5"
   },
-  "engines": { "node": ">=8.3" }
+  "engines": {
+    "node": ">=8.3"
+  }
 }
