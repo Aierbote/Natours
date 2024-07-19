@@ -6,9 +6,9 @@
     "main": false
   },
   "scripts": {
-    "start": "node server.js",
-    "start:dev": "nodemon server.js",
-    "start:prod": "npm run env NODE_ENV=production nodemon server.js",
+    "start": "cross-env NODE_ENV=production node server.js",
+    "start:dev": "cross-env NODE_ENV=development nodemon server.js",
+    "start:prod": "cross-env NODE_ENV=production nodemon server.js",
     "debug": "ndb server.js",
     "watch:js": "parcel watch public/js/index.js --dist-dir public/js/bundled",
     "build:js": "parcel build public/js/index.js --dist-dir public/js/bundled",
@@ -24,6 +24,7 @@
     "cookie-parser": "^1.4.6",
     "core-js": "^3.37.1",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-mongo-sanitize": "^2.2.0",
