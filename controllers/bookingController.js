@@ -4,6 +4,7 @@ const Booking = require('../models/bookingModel');
 // const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const factory = require('./handlerFactory');
+const User = require('../models/userModel');
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   // 1) Get the currently booked tour
@@ -15,7 +16,8 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
       SESSION INFO
     */
     payment_method_types: ['card'],
-    success_url: `${req.protocol}://${req.get('host')}/?tour=${req.params.tourId}&user=${req.user.id}&price=${tour.price}`, // NOTE : this by any mean is not a secure way to pass the data, by knowing the endpoint the query could be forged without the checkout process
+    // success_url: `${req.protocol}://${req.get('host')}/my-tours/?tour=${req.params.tourId}&user=${req.user.id}&price=${tour.price}`, // NOTE : this by any mean is not a secure way to pass the data, by knowing the endpoint the query could be forged without the checkout process
+    success_url: `${req.protocol}://${req.get('host')}/my-tours/`,
     mode: 'payment',
     cancel_url: `${req.protocol}://${req.get('host')}/tour/${tour.slug}`,
     customer_email: req.user.email,
@@ -27,12 +29,14 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
       {
         quantity: 1,
         price_data: {
+          mode: 'payment',
           unit_amount: tour.price * 100,
           currency: 'eur', // 'usd' for Dollar
           product_data: {
             name: `${tour.name} Tour`,
-            // TODO : update with the correct links
-            images: [`https://www.natours.dev/img/tours/${tour.imageCover}`],
+            images: [
+              `https://natours-black-ten.vercel.app/img/tours/${tour.imageCover}`,
+            ],
             description: tour.summary,
           },
         },
@@ -47,15 +51,46 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.createBookingCheckout = catchAsync(async (req, res, next) => {
-  // this is only TEMPORARY, because it's UNSECURE: everyone can make bookings without paying
-  const { tour, user, price } = req.query;
+// exports.createBookingCheckout = catchAsync(async (req, res, next) => {
+//   // this was only TEMPORARY, because it's UNSECURE: everyone can make bookings without paying
+//   const { tour, user, price } = req.query;
 
-  if (!tour || !user || !price) return next();
+//   if (!tour || !user || !price) return next();
+//   await Booking.create({ tour, user, price });
+
+//   res.redirect(req.originalUrl.split('?')[0]);
+// });
+
+const createBookingCheckout = async (session) => {
+  const tour = session.client_reference_id;
+  const user = (await User.findOne({ email: session.customer_email })).id;
+  // const price = session.line_items[0].price_data.unit_amount / 100;
+  const price = session.amount_total / 100;
+
   await Booking.create({ tour, user, price });
+};
 
-  res.redirect(req.originalUrl.split('?')[0]);
-});
+exports.webhookCheckout = (req, res, next) => {
+  const signature = req.headers('stript-signature');
+
+  let event;
+  try {
+    event = stripe.webhooks.constructEvent(
+      req.body,
+      signature,
+      process.env.STRIPE_WEBHOOK_SECRET,
+    );
+  } catch (err) {
+    return res.status(400).send(`Webhook error: ${err.message}`);
+  }
+
+  if (event.type === 'checkout.session.completed') {
+    console.log('🥲 Why is this not working...?');
+    createBookingCheckout(event.data.object);
+  }
+
+  res.status(200).json({ received: true });
+};
 
 exports.createBooking = factory.createOne(Booking);
 
