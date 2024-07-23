@@ -5,6 +5,7 @@ import { login, logout } from './login';
 import { displayMap } from './leaflet';
 import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
+import { showAlert } from './alerts';
 
 // DOM ELEMENTS
 const leaflet = document.getElementById('map');
@@ -13,6 +14,7 @@ const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 const bookBtn = document.querySelector('#book-tour');
+const alertMessage = document.querySelector(body).dataset.alert;
 
 // DELEGATION
 if (leaflet) {
@@ -90,3 +92,5 @@ if (bookBtn) {
     // e.target.textContent = 'Book Tour Now!';
   });
 }
+
+if (alert) showAlert('success', alertMessage, 20);
