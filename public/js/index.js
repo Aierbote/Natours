@@ -14,7 +14,6 @@ const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 const bookBtn = document.querySelector('#book-tour');
-const alertMessage = document.querySelector(body).dataset.alert;
 
 // DELEGATION
 if (leaflet) {
@@ -93,4 +92,5 @@ if (bookBtn) {
   });
 }
 
-if (alert) showAlert('success', alertMessage, 20);
+const alertMessage = document.querySelector(body).dataset.alert;
+if (alertMessage) showAlert('success', alertMessage, 20);
